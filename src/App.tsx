@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.scss';
+import { Header } from './Components/Header/Header';
+import { Footer } from './Components/Footer/Footer';
+import { Main } from './Components/Main/Main';
 
 interface Props {
   onClick: () => void;
@@ -20,7 +23,9 @@ export const App: React.FC = () => {
   return (
     <div className="starter">
       <Provider onClick={() => ({})}>
-        <TodoList />
+        <Header />
+        <Main />
+        <Footer />
       </Provider>
     </div>
   );
