@@ -1,0 +1,18 @@
+.header {
+  height: $header-height;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__items {
+    display: flex;
+  }
+}
