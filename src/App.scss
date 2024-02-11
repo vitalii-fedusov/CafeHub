@@ -1,19 +1,18 @@
-* {
-  box-sizing: border-box;
-}
-
-.starter {
-  font-size: 18px;
-  min-height: 100vh;
-  // border: 1px solid red;
-  max-width: 1440px;
-
-  padding: 40px 40px 32px;
-}
-
 @import '/src/style-utils/vars.scss';
 @import '/src/style-utils/normalize.scss';
 
 @import '../src/Components/Header/Header.scss';
 @import '../src/Components/Main/Main.scss';
 @import '../src/Components/Footer/Footer.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  font-size: 18px;
+  min-height: calc(100vh - #{$footer-height});
+  max-width: 1440px;
+  padding: 40px 40px 32px;
+}
+

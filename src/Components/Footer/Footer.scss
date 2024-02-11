@@ -1,3 +1,38 @@
 .footer {
+  display: flex;
+  justify-content: space-between;
   height: $footer-height;
+  background-color: #4c3330;
+  padding: 28px 40px 32px;
+  color: #fff;
+
+  &__policies {
+    display: flex;
+    gap: 40px;
+  }
+
+  &__left {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.bottom-list {
+  display: flex;
+  gap: 40px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__heading {
+    font-size: 28px;
+  }
+
+  &__option {
+    margin-bottom: 8px;
+  }
 }

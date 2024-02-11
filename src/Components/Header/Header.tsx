@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="top-bar">
-        <a href="/">
+        <a href=".">
           <img src={logo} alt="CafeHub logo" />
         </a>
 

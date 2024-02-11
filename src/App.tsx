@@ -6,10 +6,12 @@ import { Main } from './Components/Main/Main';
 
 export const App: React.FC = () => {
   return (
-    <div className="starter">
-      <Header />
-      <Main />
+    <>
+      <div className="container">
+        <Header />
+        <Main />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
