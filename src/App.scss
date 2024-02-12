@@ -1,5 +1,6 @@
 @import '/src/style-utils/vars.scss';
 @import '/src/style-utils/normalize.scss';
+@import '/src/style-utils/mixins.scss';
 
 @import '../src/Components/Header/Header.scss';
 @import '../src/Components/Main/Main.scss';
@@ -11,8 +12,18 @@
 
 .container {
   font-size: 18px;
-  min-height: calc(100vh - #{$footer-height});
   max-width: 1440px;
   padding: 40px 40px 32px;
+  margin: 0 auto;
 }
 
+.page {
+ 
+  &__header {
+    margin-bottom: 88px;
+  }
+
+  &__body {
+    margin-inline: auto;
+  }
+}
