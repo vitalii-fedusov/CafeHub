@@ -29,14 +29,23 @@ export const Header: React.FC = () => {
 
       <div className="header__search-bar search-bar">
         <ul className="search-bar__list">
-          <li className="search-bar__item search-bar__city">
-            <button type="button">Київ</button>
+          <li className="search-bar__item search-bar__item--city">
+            <button className="search-bar__city" type="button">
+              <img src={arrowDown} alt="arrow down" />
+              Київ
+            </button>
           </li>
-          <li className="search-bar__item search-bar__input">
-            <input type="text" placeholder="Обери найкраще місце для свого відпочинку" />
+
+          <li className="search-bar__item search-bar__item--input">
+            <input
+              className="search-bar__input"
+              type="text"
+              placeholder="Обери найкраще місце для свого відпочинку"
+            />
           </li>
-          <li className="search-bar__item search-bar__search">
-            <button type="button">Пошук</button>
+
+          <li className="search-bar__item search-bar__item--search">
+            <button className="search-bar__search" type="button">Пошук</button>
           </li>
         </ul>
       </div>
