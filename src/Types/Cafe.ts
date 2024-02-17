@@ -3,6 +3,7 @@ export type Cafe = {
   name: string,
   image: string,
   address: string,
+  urlAddress: string,
   schedule: string,
   rating: number,
   feedbackAmount: number,
