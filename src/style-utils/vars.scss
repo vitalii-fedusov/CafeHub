@@ -1,6 +1,7 @@
 $footer-height: 322px;
 $grid-col-gap: 20px;
 $border-radius: 16px;
+$max-container-width: 1440px;
 
 $brown-color: #4c3330;
 $green-color: #348c1b;
@@ -16,3 +17,16 @@ $error-color: #ff5e55;
 $info-color: #8f8cff;
 $warning-color: #ffe169;
 $success-color: #5fde7f;
+
+$hover-brown-border: #9b8482;
+$hover-brown-text: #a3705f;
+$focused-bg-button: #f5eeeb;
+
+$green-hover: #3fa622;
+$green-active: #2d8314;
+
+$effect-duration: 0.3s;
+$anim-timing-func: ease;
+$scale-value: 1.1;
+
+$box-shadow-value: 0 2px 4px 0 rgba(78, 78, 78, 0.2);

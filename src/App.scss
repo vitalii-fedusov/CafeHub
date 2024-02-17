@@ -6,6 +6,7 @@
 @import '../src/Components/Main/Main.scss';
 @import '../src/Components/Footer/Footer.scss';
 @import '../src/Components/Card/Card.scss';
+@import '../src/Pages/Home/Home.scss';
 
 * {
   box-sizing: border-box;
@@ -13,7 +14,7 @@
 
 .container {
   font-size: 18px;
-  max-width: 1440px;
+  max-width: $max-container-width;
   padding: 40px 40px 32px;
   margin: 0 auto;
 }
@@ -27,4 +28,8 @@
   &__body {
     margin-inline: auto;
   }
+}
+
+.logo {
+  @include hoverScale;
 }

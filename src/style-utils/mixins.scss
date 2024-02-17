@@ -3,3 +3,32 @@
   grid-template-columns: repeat(8, 1fr);
   gap: $grid-col-gap;
 }
+
+@mixin hover($property, $toVAlue) {
+  transition: #{$property} $effect-duration $anim-timing-func;
+  &:hover {
+    #{$property}: $toVAlue;
+  }
+}
+
+@mixin active($property, $toVAlue) {
+  transition: #{$property} $effect-duration $anim-timing-func;
+  &:active {
+    #{$property}: $toVAlue;
+  }
+}
+
+@mixin focus($property, $toVAlue) {
+  transition: #{$property} $effect-duration $anim-timing-func;
+  &:focus {
+    #{$property}: $toVAlue;
+  }
+}
+
+@mixin hoverScale {
+  transition: transform $effect-duration $anim-timing-func;
+
+  &:hover {
+    transform: scale($scale-value);
+  }
+}

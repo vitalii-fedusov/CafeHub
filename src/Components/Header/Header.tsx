@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
   return (
     <header className="header page__header">
       <div className="top-bar header__top-bar">
-        <a href=".">
+        <a className="logo" href=".">
           <img src={logo} alt="CafeHub logo" />
         </a>
 
@@ -30,18 +30,22 @@ export const Header: React.FC = () => {
       <div className="header__search-bar search-bar">
         <ul className="search-bar__list">
           <li className="search-bar__item search-bar__item--city">
-            <button className="search-bar__city" type="button">
-              <img src={arrowDown} alt="arrow down" />
-              Київ
+            <button className="search-bar__city city-button" type="button">
+              <img className="search-bar__arrow-down" src={arrowDown} alt="arrow down" />
+              <h3 className="city-button__name">Київ</h3>
             </button>
           </li>
 
           <li className="search-bar__item search-bar__item--input">
-            <input
-              className="search-bar__input"
-              type="text"
-              placeholder="Обери найкраще місце для свого відпочинку"
-            />
+            <label htmlFor="main-input" className="search-bar__label">
+              <input
+                id="main-input"
+                className="search-bar__input"
+                type="text"
+                placeholder="Обери найкраще місце для свого відпочинку"
+              />
+            </label>
+
           </li>
 
           <li className="search-bar__item search-bar__item--search">
