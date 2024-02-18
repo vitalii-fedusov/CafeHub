@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Card } from '../../Components/Card/Card';
 import { Cafe } from '../../Types/Cafe';
+import { Filters } from '../../Components/Filters/Filters';
 
 export const Home: React.FC = () => {
   const [caffes, setCaffes] = useState<Cafe[]>([]);
@@ -56,9 +57,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <aside className="filters main__filters">
-        filters
-      </aside>
+      <Filters />
 
       <div className="main__cards cards">
         {currentItems.map(cafe => (

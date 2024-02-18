@@ -19,8 +19,9 @@ export const Card: React.FC<Props> = ({ card }) => {
 
   return (
     <div className="card">
-      <a href="." className="card__image">
+      <a href=".">
         <img
+          className="card__image"
           src="./images/cafe-first-point.png"
           alt={name}
         />
