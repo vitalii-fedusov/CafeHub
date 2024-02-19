@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { Card } from '../../Components/Card/Card';
 import { Cafe } from '../../Types/Cafe';
 import { Filters } from '../../Components/Filters/Filters';
+import { SearchBar } from '../../Components/SearchBar/SearchBar';
 
 export const Home: React.FC = () => {
   const [caffes, setCaffes] = useState<Cafe[]>([]);
@@ -57,6 +58,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
+      <SearchBar />
       <Filters />
 
       <div className="main__cards cards">

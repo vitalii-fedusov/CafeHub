@@ -3,11 +3,11 @@
 @import '/src/style-utils/mixins.scss';
 
 @import '../src/Components/Header/Header.scss';
-@import '../src/Components/Main/Main.scss';
 @import '../src/Components/Footer/Footer.scss';
 @import '../src/Components/Card/Card.scss';
 @import '../src/Pages/Home/Home.scss';
 @import '../src/Components/Filters/Filters.scss';
+@import '../src/Components/SearchBar/SearchBar.scss';
 
 * {
   box-sizing: border-box;
@@ -21,16 +21,34 @@
 }
 
 .page {
- 
-  &__header {
-    margin-bottom: 88px;
-  }
-
   &__body {
     margin-inline: auto;
+  }
+
+  &__container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
 .logo {
   @include hoverScale;
+}
+
+.main {
+  @include pageGrid;
+
+  &__search-bar {
+    margin-bottom: 64px;
+  }
+
+  &__filters {
+    grid-column: span 2;
+  }
+
+  &__cards {
+    grid-column: span 6;
+  }
 }
