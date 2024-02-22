@@ -20,6 +20,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/semi': ['error'],
+
+    'prettier/prettier': 0
   },
   parser: '@typescript-eslint/parser',
   plugins: [

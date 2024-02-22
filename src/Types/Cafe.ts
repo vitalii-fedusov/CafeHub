@@ -1,11 +1,39 @@
+import { Comment } from "./Comment";
+import { Cuisine } from "./Cuisine";
+import { Language } from "./Language";
+
 export type Cafe = {
-  id: number,
-  name: string,
-  image: string,
-  address: string,
-  urlAddress: string,
-  schedule: string,
-  rating: number,
-  feedbackAmount: number,
-  averageBill: number,
+  id: string;
+  name: string;
+  address: string;
+  languages: Language[];
+  openFromWeekdays: string;
+  closeAtWeekdays: string;
+  openFromWeekends: string;
+  closeAtWeekends: string;
+  score: number;
+  urlToGoogleMaps: string;
+  urlOfImage: string;
+  comments: Comment[];
+  webSite: string;
+  coworking: boolean;
+  vegan: boolean;
+  petFriendly: boolean;
+  averageBill: number;
+  images: string[];
+  cuisines: Cuisine[];
+  fastService: boolean;
+  wifi: boolean;
+  businessLunch: boolean;
+  freeWater: boolean;
+  boardGames: boolean;
+  birthday: boolean;
+  businessMeeting: boolean;
+  childHoliday: boolean;
+  romantic: boolean;
+  thematicEvent: boolean;
+  familyHoliday: boolean;
+  parking: boolean;
+  terrace: boolean;
+  description: string;
 };

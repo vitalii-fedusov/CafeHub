@@ -54,7 +54,7 @@ export const Filters: React.FC = () => {
       <FormGroup>
         {filters.map(filter => (
           <>
-            <h2>{`${filter.name}:`}</h2>
+            <h2 className="filters__title">{`${filter.name}:`}</h2>
 
             {filter.options.map(option => (
               <FormControlLabel
@@ -67,7 +67,7 @@ export const Filters: React.FC = () => {
                       '&.Mui-checked': {
                         color: brown[600],
                       },
-                      '& .MuiSvgIcon-root': { fontSize: 28 },
+                      '& .MuiSvgIcon-root': { fontSize: 24 },
                     }}
                   />
                 }

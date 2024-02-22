@@ -1,5 +1,5 @@
 .card {
-  grid-column: span 1;
+  grid-column: span 2;
   border-radius: $border-radius;
   font-size: 16px;
   box-shadow: 0 2px 4px 0 rgba(78, 78, 78, 0.2);
@@ -12,6 +12,9 @@
     display: flex;
     gap: 8px;
     margin-bottom: 12px;
+    .MuiBox-root {
+      width: min-content;
+    }
   }
 
   &__link {
@@ -27,6 +30,9 @@
 
   &__paragraph {
     margin: 0;
+  }
+
+  &__link {
   }
 
   &__image {
