@@ -1,26 +1,22 @@
 {
   "files": {
-    "main.css": "./static/css/main.d01b5475.chunk.css",
-    "main.js": "./static/js/main.911392e9.chunk.js",
-    "main.js.map": "./static/js/main.911392e9.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.8c9895b1.js",
-    "runtime-main.js.map": "./static/js/runtime-main.8c9895b1.js.map",
-    "static/js/2.5f955b71.chunk.js": "./static/js/2.5f955b71.chunk.js",
-    "static/js/2.5f955b71.chunk.js.map": "./static/js/2.5f955b71.chunk.js.map",
+    "main.css": "./static/css/main.2a5057f3.css",
+    "main.js": "./static/js/main.b08793b4.js",
+    "static/media/main-bg-image.jpg": "./static/media/main-bg-image.a4afbe59d7d850b9411f.jpg",
+    "static/media/cafe-logo.svg": "./static/media/cafe-logo.f09f34bbff95618c0656d511adb7bcc5.svg",
+    "static/media/tabler-icon-map-pin.svg": "./static/media/tabler-icon-map-pin.cab5b036e4cc7d8f45a7c0831c241cf5.svg",
+    "static/media/magnifier.svg": "./static/media/magnifier.4bea66ed4dd2c2711cc5.svg",
+    "static/media/tabler-icon-clock-hour-10.svg": "./static/media/tabler-icon-clock-hour-10.da66370e1bf62a16a656f99aa382031d.svg",
+    "static/media/world-icon.svg": "./static/media/world-icon.172c3cf72185bb83debe7a01c8ff8418.svg",
     "index.html": "./index.html",
-    "static/css/main.d01b5475.chunk.css.map": "./static/css/main.d01b5475.chunk.css.map",
-    "static/js/2.5f955b71.chunk.js.LICENSE.txt": "./static/js/2.5f955b71.chunk.js.LICENSE.txt",
-    "static/media/arrow-down.086b474c.svg": "./static/media/arrow-down.086b474c.svg",
-    "static/media/App.scss": "./static/media/main-bg-image.a4afbe59.jpg",
-    "static/media/cafe-logo.f09f34bb.svg": "./static/media/cafe-logo.f09f34bb.svg",
-    "static/media/tabler-icon-clock-hour-10.da66370e.svg": "./static/media/tabler-icon-clock-hour-10.da66370e.svg",
-    "static/media/tabler-icon-map-pin.cab5b036.svg": "./static/media/tabler-icon-map-pin.cab5b036.svg",
-    "static/media/world-icon.172c3cf7.svg": "./static/media/world-icon.172c3cf7.svg"
+    "static/media/arrow-down.svg": "./static/media/arrow-down.086b474cd929025b4fefa32b91a73e11.svg",
+    "static/media/arrow-left.svg": "./static/media/arrow-left.e9493111891c01cb4ab3.svg",
+    "static/media/arrow-right.svg": "./static/media/arrow-right.8d024af755b1f7350677.svg",
+    "main.2a5057f3.css.map": "./static/css/main.2a5057f3.css.map",
+    "main.b08793b4.js.map": "./static/js/main.b08793b4.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.8c9895b1.js",
-    "static/js/2.5f955b71.chunk.js",
-    "static/css/main.d01b5475.chunk.css",
-    "static/js/main.911392e9.chunk.js"
+    "static/css/main.2a5057f3.css",
+    "static/js/main.b08793b4.js"
   ]
 }
