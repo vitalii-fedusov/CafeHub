@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.2a5057f3.css",
-    "main.js": "./static/js/main.b08793b4.js",
+    "main.css": "./static/css/main.05cb1cab.css",
+    "main.js": "./static/js/main.b206d4db.js",
     "static/media/main-bg-image.jpg": "./static/media/main-bg-image.a4afbe59d7d850b9411f.jpg",
     "static/media/cafe-logo.svg": "./static/media/cafe-logo.f09f34bbff95618c0656d511adb7bcc5.svg",
     "static/media/tabler-icon-map-pin.svg": "./static/media/tabler-icon-map-pin.cab5b036e4cc7d8f45a7c0831c241cf5.svg",
@@ -12,11 +12,11 @@
     "static/media/arrow-down.svg": "./static/media/arrow-down.086b474cd929025b4fefa32b91a73e11.svg",
     "static/media/arrow-left.svg": "./static/media/arrow-left.e9493111891c01cb4ab3.svg",
     "static/media/arrow-right.svg": "./static/media/arrow-right.8d024af755b1f7350677.svg",
-    "main.2a5057f3.css.map": "./static/css/main.2a5057f3.css.map",
-    "main.b08793b4.js.map": "./static/js/main.b08793b4.js.map"
+    "main.05cb1cab.css.map": "./static/css/main.05cb1cab.css.map",
+    "main.b206d4db.js.map": "./static/js/main.b206d4db.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a5057f3.css",
-    "static/js/main.b08793b4.js"
+    "static/css/main.05cb1cab.css",
+    "static/js/main.b206d4db.js"
   ]
 }
