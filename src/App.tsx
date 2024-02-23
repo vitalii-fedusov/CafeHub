@@ -10,7 +10,7 @@ export const App: React.FC = () => {
       <div className="page__container">
         <div className="container">
           <Header />
-          <main className="main">
+          <main className="main page__main">
             <Outlet />
           </main>
         </div>

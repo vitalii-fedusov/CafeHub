@@ -1,11 +1,11 @@
-import React from 'react';
-import { Cafe } from '../../Types/Cafe';
-import mapPin from '../../assets/icons/tabler-icon-map-pin.svg';
-import clock from '../../assets/icons/tabler-icon-clock-hour-10.svg';
-import TextRating from '../Stars/Stars';
+import React from "react";
+import { Cafe } from "../../Types/Cafe";
+import mapPin from "../../assets/icons/tabler-icon-map-pin.svg";
+import clock from "../../assets/icons/tabler-icon-clock-hour-10.svg";
+import TextRating from "../Stars/Stars";
 
 type Props = {
-  card: Cafe,
+  card: Cafe;
 };
 
 export const Card: React.FC<Props> = ({ card }) => {
@@ -15,8 +15,22 @@ export const Card: React.FC<Props> = ({ card }) => {
     urlToGoogleMaps,
     // urlOfImage,
     openFromWeekdays,
+    closeAtWeekdays,
     averageBill,
   } = card;
+
+  function getValidTime(time: string) {
+    return time.slice(0, -3);
+  }
+
+  function getKitchenTime(time: string) {
+    const hour = parseInt(time.split(":")[0], 10);
+
+    return `(кухня до ${hour - 1}:30)`;
+  }
+
+  const weekdaysHours = `${getValidTime(openFromWeekdays)}-${getValidTime(closeAtWeekdays)} `;
+  const kitchenHours = getKitchenTime(closeAtWeekdays);
 
   return (
     <div className="card">
@@ -39,13 +53,18 @@ export const Card: React.FC<Props> = ({ card }) => {
         <li className="card__item">
           <a href={urlToGoogleMaps} className="card__link" target="blank">
             <img src={mapPin} alt="mapPinIcon" />
-            <p className="card__paragraph">{address}</p>
+            <p className="card__paragraph card__paragraph--address">
+              {address}
+            </p>
           </a>
         </li>
 
         <li className="card__item">
           <img src={clock} alt="clockIcon" />
-          <p className="card__paragraph">{openFromWeekdays}</p>
+          <p className="card__paragraph card__paragraph--hours">
+            {weekdaysHours}
+            {kitchenHours}
+          </p>
         </li>
 
         <li className="card__item">

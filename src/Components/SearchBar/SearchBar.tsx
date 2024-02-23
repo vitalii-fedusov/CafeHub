@@ -1,5 +1,5 @@
-import React from 'react';
-import arrowDown from '../../assets/icons/arrow-down.svg';
+import React from "react";
+import arrowDown from "../../assets/icons/arrow-down.svg";
 
 export const SearchBar: React.FC = () => {
   return (
@@ -7,7 +7,11 @@ export const SearchBar: React.FC = () => {
       <ul className="search-bar__list">
         <li className="search-bar__item search-bar__item--city">
           <button className="search-bar__city city-button" type="button">
-            <img className="search-bar__arrow-down" src={arrowDown} alt="arrow down" />
+            <img
+              className="search-bar__arrow-down"
+              src={arrowDown}
+              alt="arrow down"
+            />
             <h3 className="city-button__name">Київ</h3>
           </button>
         </li>
@@ -21,11 +25,12 @@ export const SearchBar: React.FC = () => {
               placeholder="Обери найкраще місце для свого відпочинку"
             />
           </label>
-
         </li>
 
         <li className="search-bar__item search-bar__item--search">
-          <button className="search-bar__search" type="button">Пошук</button>
+          <button className="search-bar__search" type="button">
+            Пошук
+          </button>
         </li>
       </ul>
     </div>
