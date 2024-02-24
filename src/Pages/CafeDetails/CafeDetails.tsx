@@ -1,7 +1,21 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const CafeDetails: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <h1>Cafe details page</h1>
+    <>
+      <div className="breadCrumps">
+        {/* eslint-disable-next-line */}
+        <button
+          className="button"
+          id="backButton"
+          type="button"
+          onClick={() => navigate(-1)}
+        ></button>
+        <label htmlFor="backButton">Назад</label>
+      </div>
+    </>
   );
 };

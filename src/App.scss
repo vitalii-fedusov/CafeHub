@@ -8,6 +8,8 @@
 @import '../src/Pages/Home/Home.scss';
 @import '../src/Components/Filters/Filters.scss';
 @import '../src/Components/SearchBar/SearchBar.scss';
+@import '../src/Pages/CafeDetails/Button.scss';
+@import '../src/Pages/CafeDetails/CafeDetail.scss';
 
 * {
   box-sizing: border-box;
@@ -18,6 +20,7 @@ iframe {
 }
 
 .container {
+  width: 100%;
   font-size: 18px;
   max-width: $max-container-width;
   padding: 26px 40px 32px;

@@ -3,6 +3,8 @@ $grid-col-gap: 20px;
 $border-radius: 16px;
 $max-container-width: 1200px;
 
+$button-width: 44px;
+
 $grid-col-amount: 8;
 
 $col-width: ($max-container-width - ($grid-col-amount - 1) * $grid-col-gap) / 8;

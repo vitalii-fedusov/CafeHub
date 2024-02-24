@@ -1,0 +1,10 @@
+.button {
+  width: $button-width;
+  height: $button-width;
+  box-shadow: $box-shadow-value;
+  background-color: #fff;
+  background: no-repeat center url('../../assets/icons/arrow-left.svg');
+  cursor: pointer;
+
+  @include hoverScale;
+}
