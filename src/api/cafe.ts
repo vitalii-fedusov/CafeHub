@@ -1,11 +1,10 @@
-export {};
-// import { Todo } from '../types/Todo';
-// import { User } from '../types/User';
-// import { client } from '../utils/fetchClient';
+import { Cafe } from '../Types/Cafe';
+import { client } from './wait';
 
-// export const getTodos = (userId: number) => {
-//   return client.get<Todo[]>(`/todos?userId=${userId}`);
-// };
+export const getCafes = () => {
+  // return client.get<Cafe[]>(`/goods`);
+  return client.get<Cafe[]>('/cafes', {});
+};
 
 // export const createTodo = ({ userId, title, completed }: Omit<Todo, 'id'>) => {
 //   return client.post<Todo>('/todos', { userId, title, completed });

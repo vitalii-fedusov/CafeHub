@@ -4,6 +4,8 @@ import { Cafe } from "../../Types/Cafe";
 import mapPin from "../../assets/icons/tabler-icon-map-pin.svg";
 import clock from "../../assets/icons/tabler-icon-clock-hour-10.svg";
 import TextRating from "../Stars/Stars";
+import { useAppDispatch } from "../../app/hooks";
+import { setCafe } from "../../features/SelectedCafe/selectedCafeSlice";
 
 type Props = {
   card: Cafe;
@@ -34,15 +36,16 @@ export const Card: React.FC<Props> = ({ card }) => {
   const weekdaysHours = `${getValidTime(openFromWeekdays)}-${getValidTime(closeAtWeekdays)} `;
   const kitchenHours = getKitchenTime(closeAtWeekdays);
 
+  const dispatch = useAppDispatch();
+
   return (
     <div className="card">
-      <NavLink to={`/${id}`} className="card__link">
-        <img
-          className="card__image"
-          // src='https://i.imgur.com/iPMWW5y.jpeg'
-          src={urlOfImage}
-          alt={name}
-        />
+      <NavLink
+        to={`/${id}`}
+        className="card__link"
+        onClick={() => dispatch(setCafe(card))}
+      >
+        <img className="card__image" src={urlOfImage} alt={name} />
       </NavLink>
 
       <ul className="card__list">

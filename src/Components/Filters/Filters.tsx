@@ -59,15 +59,36 @@ export const Filters: React.FC = () => {
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev.toString());
 
-      if (newParams.get('sortBy') === newValue) {
+      if (newParams.get("sortBy") === newValue) {
         return newParams;
       }
 
-      newParams.set('sortBy', newValue);
+      newParams.set("sortBy", newValue);
+      newParams.set("page", "1");
 
       return newParams;
     });
   };
+
+  const services = searchParams.getAll("services") || [];
+
+
+  function toggleService(service: string) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+
+      const newServices = services.includes(service)
+        ? services.filter((ch) => ch !== service)
+        : [...services, service];
+
+      params.delete("services");
+      newServices.forEach((ch) => params.append("services", ch));
+      params.set("page", "1");
+
+      return params;
+    });
+  }
 
   return (
     <aside className="filters main__filters">
@@ -147,6 +168,8 @@ export const Filters: React.FC = () => {
                         },
                         "& .MuiSvgIcon-root": { fontSize: 24 },
                       }}
+                      checked={services.includes(option)}
+                      onChange={() => toggleService(option)}
                     />
                   }
                   label={option}
