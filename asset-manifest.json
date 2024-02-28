@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "./static/css/main.b44cc54b.css",
-    "main.js": "./static/js/main.c7bd7294.js",
+    "main.css": "./static/css/main.d4108378.css",
+    "main.js": "./static/js/main.ad98cefa.js",
     "static/media/main-bg-image.jpg": "./static/media/main-bg-image.a4afbe59d7d850b9411f.jpg",
     "static/media/cafe-logo.svg": "./static/media/cafe-logo.f09f34bbff95618c0656d511adb7bcc5.svg",
     "static/media/tabler-icon-map-pin.svg": "./static/media/tabler-icon-map-pin.cab5b036e4cc7d8f45a7c0831c241cf5.svg",
+    "static/media/hart--gray.svg": "./static/media/hart--gray.5737c4a48a824a13359d.svg",
     "static/media/magnifier.svg": "./static/media/magnifier.4bea66ed4dd2c2711cc5.svg",
     "static/media/tabler-icon-clock-hour-10.svg": "./static/media/tabler-icon-clock-hour-10.da66370e1bf62a16a656f99aa382031d.svg",
     "static/media/world-icon.svg": "./static/media/world-icon.172c3cf72185bb83debe7a01c8ff8418.svg",
@@ -12,11 +13,11 @@
     "static/media/arrow-down.svg": "./static/media/arrow-down.086b474cd929025b4fefa32b91a73e11.svg",
     "static/media/arrow-left.svg": "./static/media/arrow-left.e9493111891c01cb4ab3.svg",
     "static/media/arrow-right.svg": "./static/media/arrow-right.8d024af755b1f7350677.svg",
-    "main.b44cc54b.css.map": "./static/css/main.b44cc54b.css.map",
-    "main.c7bd7294.js.map": "./static/js/main.c7bd7294.js.map"
+    "main.d4108378.css.map": "./static/css/main.d4108378.css.map",
+    "main.ad98cefa.js.map": "./static/js/main.ad98cefa.js.map"
   },
   "entrypoints": [
-    "static/css/main.b44cc54b.css",
-    "static/js/main.c7bd7294.js"
+    "static/css/main.d4108378.css",
+    "static/js/main.ad98cefa.js"
   ]
 }
