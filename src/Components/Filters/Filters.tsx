@@ -34,7 +34,6 @@ export const Filters: React.FC = () => {
       options: [
         "Pet Friendly",
         "Бізнес-ланчі",
-        "Авторська",
         "Настільні ігри",
         "Коворкінг",
       ],
@@ -71,7 +70,6 @@ export const Filters: React.FC = () => {
   };
 
   const services = searchParams.getAll("services") || [];
-
 
   function toggleService(service: string) {
     setSearchParams((prev) => {

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import { Chip, Stack } from "@mui/material";
 import { Card } from "../../Components/Card/Card";
 import { Filters } from "../../Components/Filters/Filters";
 import { SearchBar } from "../../Components/SearchBar/SearchBar";
@@ -15,6 +16,7 @@ export const Home: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +(searchParams.get("page") || 1);
   const cafes: Cafe[] = JSON.parse(JSON.stringify(cafesFromServer));
+  const services = searchParams.getAll("services");
 
   // const { cafes, loading, error } = useAppSelector((state) => state.cafes);
   // const dispatch = useAppDispatch();
@@ -47,7 +49,6 @@ export const Home: React.FC = () => {
     window.scrollTo(0, 500);
   }, [page]);
 
-
   const itemsPerPage = 9;
   const itemOffset = (page - 1) * itemsPerPage;
 
@@ -67,12 +68,49 @@ export const Home: React.FC = () => {
     });
   };
 
+  function toggleService(service: string) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      const newServices = services.includes(service)
+        ? services.filter((ch) => ch !== service)
+        : [...services, service];
+
+      params.delete("services");
+      newServices.forEach((ch) => params.append("services", ch));
+      params.set("page", "1");
+
+      return params;
+    });
+  }
+
   return (
     <>
       <SearchBar />
       <Filters />
 
       <div className="main__cards">
+        {!!services.length && (
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              flexWrap: "wrap",
+              gap: '8px',
+              marginBottom: "12px",
+            }}
+          >
+            {services.map((service) => (
+              <Chip
+                key={service}
+                label={service}
+                color="success"
+                variant="outlined"
+                onDelete={() => toggleService(service)}
+              />
+            ))}
+          </Stack>
+        )}
         <div className="main__cards-container">
           {currentItems.map((cafe) => (
             <Card card={cafe} key={cafe.id} />
