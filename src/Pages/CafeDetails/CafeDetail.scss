@@ -8,6 +8,7 @@
 }
 
 .cafe {
+  // width: 100px;
   @include pageGrid;
   grid-column: span 8;
 

@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, StyledEngineProvider, Tab, Tabs } from "@mui/material";
+import classNames from "classnames";
 import TextRating from "../../Components/Stars/Stars";
 import mapPin from "../../assets/icons/tabler-icon-map-pin.svg";
+// eslint-disable-next-line
+import { CafeDescription } from "../../Components/CafeDescription/CafeDescription";
+import { CardSwiper } from "../../Components/CardSwiper/CardSwiper";
+
+enum CafeInfoSections {
+  DESCRIPTION = "Опис",
+  PHOTO = "Фото",
+  TESTIMONIALS = "Відгуки",
+}
 
 export const CafeDetails: React.FC = () => {
+  const cafeInfoSections = [
+    CafeInfoSections.DESCRIPTION,
+    CafeInfoSections.PHOTO,
+    CafeInfoSections.TESTIMONIALS,
+  ];
+
   const navigate = useNavigate();
 
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const [cafeInfoSection, setCafeInfoSection] = useState("Опис");
 
   const cafe = {
     id: 1,
@@ -108,7 +120,7 @@ export const CafeDetails: React.FC = () => {
         <label htmlFor="backButton">Назад</label>
       </div>
 
-      <div className="cafe">
+      <div className="cafe main__cafe">
         <a
           href={webSite}
           target="blank"
@@ -180,44 +192,53 @@ export const CafeDetails: React.FC = () => {
         </div>
       </div>
 
-      <Box
-        sx={{
-          width: "100%",
-          bgcolor: "background.paper",
-          gridColumn: "span 8",
-        }}
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          centered
+      <StyledEngineProvider injectFirst>
+        <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: 'space-between',
+            width: "100%",
+            bgcolor: "background.paper",
+            gridColumn: "span 8",
           }}
+          className="cafe-info main__cafe-info"
         >
-          <Tab
-            label="Item One"
+          <Tabs
+            centered
             sx={{
-              width: 'calc(100% / 3)',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "space-between",
             }}
-          />
-          <Tab
-            label="Item two"
-            sx={{
-              width: 'calc(100% / 3)',
-            }}
-            content="adfe"
-          />
-          <Tab
-            label="Item three"
-            sx={{
-              width: 'calc(100% / 3)',
-            }}
-          />
-        </Tabs>
-      </Box>
+            className="cafe-info__tabs"
+          >
+            {cafeInfoSections.map((section) => (
+              <Tab
+                key={section}
+                label={section}
+                onClick={() => setCafeInfoSection(section)}
+                sx={{
+                  width: "calc(100% / 3)",
+                }}
+                className={classNames("cafe-info__tab", {
+                  "cafe-info__tab--active": cafeInfoSection === section,
+                })}
+              />
+            ))}
+          </Tabs>
+          <div className="cafe-info__section">
+            {cafeInfoSection === CafeInfoSections.DESCRIPTION && (
+              <CafeDescription />
+            )}
+
+            {cafeInfoSection === CafeInfoSections.PHOTO && <h1>фото</h1>}
+
+            {cafeInfoSection === CafeInfoSections.TESTIMONIALS && (
+              <h1>відгуки</h1>
+            )}
+          </div>
+        </Box>
+      </StyledEngineProvider>
+
+      <CardSwiper />
     </>
   );
 };

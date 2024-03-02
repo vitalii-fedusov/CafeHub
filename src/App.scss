@@ -10,6 +10,8 @@
 @import '../src/Components/SearchBar/SearchBar.scss';
 @import '../src/Pages/CafeDetails/Button.scss';
 @import '../src/Pages/CafeDetails/CafeDetail.scss';
+@import '../src/Components/CardSwiper/CardSwiper.scss';
+@import '../src/Components/CafeDescription/CafeDescription.scss';
 
 * {
   box-sizing: border-box;
@@ -72,5 +74,13 @@ iframe {
       gap: $grid-col-gap;
       margin-bottom: 32px;
     }
+  }
+
+  &__cafe {
+    margin-bottom: 24px;
+  }
+
+  &__cafe-info {
+    margin-bottom: 32px;
   }
 }
