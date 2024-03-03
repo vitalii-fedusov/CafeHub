@@ -24,7 +24,7 @@ export const CardSwiper: React.FC = () => {
       <div className="card-container" data-cy="cardsContainer">
         <div className="slick-top">
           <h2 className="slick-title">Популярні заклади</h2>
-          <a href="/" className="slick-link">
+          <a href="." className="slick-link">
             <label className="slick-link__label">Дивитись усі</label>
             <img src={arrowRight} alt="arrow-right-icon" />
           </a>
