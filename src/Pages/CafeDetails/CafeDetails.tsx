@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, StyledEngineProvider, Tab, Tabs } from "@mui/material";
+import React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Box, Rating, StyledEngineProvider, Tab, Tabs } from "@mui/material";
 import classNames from "classnames";
-import TextRating from "../../Components/Stars/Stars";
 import mapPin from "../../assets/icons/tabler-icon-map-pin.svg";
 // eslint-disable-next-line
 import { CafeDescription } from "../../Components/CafeDescription/CafeDescription";
 import { CardSwiper } from "../../Components/CardSwiper/CardSwiper";
+import { CafeImages } from "../../Components/CafeImages/CafeImages";
+// eslint-disable-next-line
+import { CafeTestimonials } from "../../Components/CafeTestimonials/CafeTestimonials";
 
 enum CafeInfoSections {
   DESCRIPTION = "Опис",
@@ -22,8 +24,19 @@ export const CafeDetails: React.FC = () => {
   ];
 
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const cafeInfoSection = searchParams.get('section')
+    || CafeInfoSections.DESCRIPTION;
 
-  const [cafeInfoSection, setCafeInfoSection] = useState("Опис");
+  const handleSectionChange = (newSection: CafeInfoSections) => {
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev.toString());
+
+      newParams.set("section", newSection.toString());
+
+      return newParams;
+    });
+  };
 
   const cafe = {
     id: 1,
@@ -115,7 +128,7 @@ export const CafeDetails: React.FC = () => {
           className="button"
           id="backButton"
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/home')}
         ></button>
         <label htmlFor="backButton">Назад</label>
       </div>
@@ -171,7 +184,7 @@ export const CafeDetails: React.FC = () => {
           </li>
 
           <li className="cafe__item cafe__rating">
-            <TextRating />
+            <Rating value={4.5} readOnly precision={0.5} />
             <p className="cafe__paragraph">(8 відгуків)</p>
           </li>
         </ul>
@@ -202,6 +215,7 @@ export const CafeDetails: React.FC = () => {
           className="cafe-info main__cafe-info"
         >
           <Tabs
+            value={false}
             centered
             sx={{
               display: "flex",
@@ -210,11 +224,12 @@ export const CafeDetails: React.FC = () => {
             }}
             className="cafe-info__tabs"
           >
-            {cafeInfoSections.map((section) => (
+            {cafeInfoSections.map((section, index) => (
               <Tab
+                value={index}
                 key={section}
                 label={section}
-                onClick={() => setCafeInfoSection(section)}
+                onClick={() => handleSectionChange(section)}
                 sx={{
                   width: "calc(100% / 3)",
                 }}
@@ -224,17 +239,17 @@ export const CafeDetails: React.FC = () => {
               />
             ))}
           </Tabs>
-          <div className="cafe-info__section">
-            {cafeInfoSection === CafeInfoSections.DESCRIPTION && (
-              <CafeDescription />
-            )}
+          {cafeInfoSection === CafeInfoSections.DESCRIPTION && (
+            <CafeDescription />
+          )}
 
-            {cafeInfoSection === CafeInfoSections.PHOTO && <h1>фото</h1>}
+          {cafeInfoSection === CafeInfoSections.PHOTO && (
+            <CafeImages />
+          )}
 
-            {cafeInfoSection === CafeInfoSections.TESTIMONIALS && (
-              <h1>відгуки</h1>
-            )}
-          </div>
+          {cafeInfoSection === CafeInfoSections.TESTIMONIALS && (
+            <CafeTestimonials />
+          )}
         </Box>
       </StyledEngineProvider>
 

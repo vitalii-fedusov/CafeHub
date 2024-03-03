@@ -3,7 +3,7 @@
   border-radius: $border-radius;
   padding: 12px;
 
-  &__section {
+  &__description-section {
     padding: 24px 20% 4px 20px;
     text-align: justify;
   }
@@ -22,6 +22,29 @@
       color: $green-color;
       border-bottom: 2px solid $green-color;
     }
+  }
+
+  &__photo-section {
+    @include pageGrid;
+    width: 100%;
+
+    padding: 24px 10px 10px 10px;
+  }
+
+  &__image {
+    grid-column: span 2;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: $border-radius;
+
+    @include hoverScale;
+  }
+
+  &__testimonials-section {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 15% 20px 15%;
   }
 }
 
