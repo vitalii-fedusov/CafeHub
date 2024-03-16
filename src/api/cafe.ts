@@ -3,7 +3,7 @@ import { client } from './wait';
 
 export const getCafes = () => {
   // return client.get<Cafe[]>(`/goods`);
-  return client.get<Cafe[]>('/cafes', {});
+  return client.get<Cafe[]>('/cafes');
 };
 
 // export const createTodo = ({ userId, title, completed }: Omit<Todo, 'id'>) => {

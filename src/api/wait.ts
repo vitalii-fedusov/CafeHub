@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// const BASE_URL = 'https://mate.academy/students-api';
-const BASE_URL = "https://762d-178-213-6-199.ngrok-free.app";
+const BASE_URL = "https://solid-rat-production.up.railway.app";
 
 export function wait(delay: number) {
   return new Promise((resolve) => {
@@ -18,19 +17,11 @@ function request<T>(
   const options: RequestInit = { method };
 
   if (data) {
-    if (method !== 'GET') {
-      options.body = JSON.stringify(data);
+    options.body = JSON.stringify(data);
 
-      options.headers = {
-        'ngrok-skip-browser-warning': '1234',
-        "Content-Type": "application/json; charset=UTF-8",
-      };
-    } else {
-      options.headers = {
-        'ngrok-skip-browser-warning': '1234',
-        // "Content-Type": "application/json; charset=UTF-8",
-      };
-    }
+    options.headers = {
+      "Content-Type": "application/json; charset=UTF-8",
+    };
   }
 
   return wait(300)
@@ -45,7 +36,7 @@ function request<T>(
 }
 
 export const client = {
-  get: <T>(url: string, data: any) => request<T>(url, 'GET', data),
+  get: <T>(url: string) => request<T>(url, "GET"),
   post: <T>(url: string, data: any) => request<T>(url, "POST", data),
   patch: <T>(url: string, data: any) => request<T>(url, "PATCH", data),
   delete: (url: string) => request(url, "DELETE"),

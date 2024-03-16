@@ -1,13 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line
-import selectedCafeReducer from '../features/SelectedCafe/selectedCafeSlice';
 import cafesReducer from '../features/cafes/cafesSlice';
+import selectedCafeReducer from '../features/SelectedCafe/selectedCafeSlice';
 
 export const store = configureStore({
   reducer: {
     cafes: cafesReducer,
     selectedCafe: selectedCafeReducer,
+    // sortOrder: sortOrderReducer,
   },
 });
 
