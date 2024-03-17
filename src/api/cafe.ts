@@ -2,9 +2,24 @@ import { Cafe } from '../Types/Cafe';
 import { client } from './wait';
 
 export const getCafes = () => {
-  // return client.get<Cafe[]>(`/goods`);
   return client.get<Cafe[]>('/cafes');
 };
+
+export const getFilteredCafes = (url: string) => {
+  return client.get<Cafe[]>(`/cafes/search?${url}`);
+};
+
+export const getCafe = (id: number) => {
+  return client.get<Cafe>(`/cafes/${id}`);
+};
+
+// export const getCafes = (url: string) => {
+//   if (!url) {
+//     return client.get<Cafe[]>('/cafes');
+//   }
+
+//   return client.get<Cafe[]>(`/cafes/${url}`);
+// };
 
 // export const createTodo = ({ userId, title, completed }: Omit<Todo, 'id'>) => {
 //   return client.post<Todo>('/todos', { userId, title, completed });

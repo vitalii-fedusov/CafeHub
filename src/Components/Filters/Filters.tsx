@@ -13,40 +13,36 @@ import { useSearchParams } from "react-router-dom";
 
 export const Filters: React.FC = () => {
   const filters = [
-    // {
-    //   name: "Сортування",
-    //   options: ["За рейтингом (від високого)", "За популярністю (від високої)"],
-    // },
     {
       name: "Кухня",
       options: [
-        "Українська",
-        "Європейська",
-        "Авторська",
-        "Здорова їжа",
-        "Смачна випічка та кава",
-        "Піца",
-        "Fast food",
+        ["Українська", 'Ukrainian'],
+        ["Європейська", 'European'],
+        ["Авторська", 'Hosper'],
+        ["Здорова їжа", 'Healthy'],
+        ["Смачна випічка та кава", 'Pastries and coffee'],
+        ["Піца", 'Pizza'],
+        ["Fast food", 'Fast food'],
       ],
     },
     {
       name: "Послуги",
       options: [
-        "Pet Friendly",
-        "Бізнес-ланчі",
-        "Настільні ігри",
-        "Коворкінг",
+        ["Pet Friendly", 'petFriendly'],
+        ["Бізнес-ланчі", 'businessLunch'],
+        ["Настільні ігри", 'boardGames'],
+        ["Коворкінг", 'coworking'],
       ],
     },
     {
       name: "Привід",
       options: [
-        "День народження",
-        "Ділова зустріч",
-        "Дитяче свято",
-        "Романтична вечеря",
-        "Тематичний вечір",
-        "Сімейне свято",
+        ["День народження", 'birthday'],
+        ["Ділова зустріч", 'businessMeeting'],
+        ["Дитяче свято", 'childHoliday'],
+        ["Романтична вечеря", 'romantic'],
+        ["Тематичний вечір", 'thematicEvent'],
+        ["Сімейне свято", 'familyHoliday'],
       ],
     },
   ];
@@ -69,19 +65,37 @@ export const Filters: React.FC = () => {
     });
   };
 
-  const services = searchParams.getAll("services") || [];
+  const cuisines = searchParams.getAll("cuisines") || [];
 
-  function toggleService(service: string) {
+  function toggleCuisines(cuisine: string) {
     setSearchParams((prev) => {
       const params = new URLSearchParams(prev);
 
 
-      const newServices = services.includes(service)
-        ? services.filter((ch) => ch !== service)
-        : [...services, service];
+      const newCuisines = cuisines.includes(cuisine)
+        ? cuisines.filter((ch) => ch !== cuisine)
+        : [...cuisines, cuisine];
 
-      params.delete("services");
-      newServices.forEach((ch) => params.append("services", ch));
+      params.delete("cuisines");
+      newCuisines.forEach((ch) => params.append("cuisines", ch));
+      params.set("page", "1");
+
+      return params;
+    });
+  }
+
+  const searchOptions = searchParams.getAll('searchOptions') || [];
+
+  function toggleSearchOptions(searchOption: string) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      const newSearchOptions = searchOptions.includes(searchOption)
+        ? searchOptions.filter((ch) => ch !== searchOption)
+        : [...searchOptions, searchOption];
+
+      params.delete("searchOptions");
+      newSearchOptions.forEach((ch) => params.append("searchOptions", ch));
       params.set("page", "1");
 
       return params;
@@ -155,7 +169,7 @@ export const Filters: React.FC = () => {
             <AccordionDetails>
               {filter.options.map((option) => (
                 <FormControlLabel
-                  key={option}
+                  key={option[1]}
                   control={
                     // eslint-disable-next-line
                     <Checkbox
@@ -166,11 +180,20 @@ export const Filters: React.FC = () => {
                         },
                         "& .MuiSvgIcon-root": { fontSize: 24 },
                       }}
-                      checked={services.includes(option)}
-                      onChange={() => toggleService(option)}
+                      checked={filter.name === 'Кухня'
+                        ? cuisines.includes(option[1])
+                        : searchOptions.includes(option[1])
+                      }
+                      onChange={() => {
+                        if (filter.name === 'Кухня') {
+                          return toggleCuisines(option[1]);
+                        }
+
+                        return toggleSearchOptions(option[1]);
+                      }}
                     />
                   }
-                  label={option}
+                  label={option[0]}
                 />
               ))}
             </AccordionDetails>

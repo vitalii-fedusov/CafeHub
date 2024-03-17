@@ -9,16 +9,62 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import * as cafesActions from "../../features/cafes/cafesSlice";
 
 export const Home: React.FC = () => {
+  const search = {
+    coworking: false,
+    vegan: false,
+    petFriendly: false,
+    fastService: false,
+    wifi: false,
+    businessLunch: false,
+    freeWater: false,
+    boardGames: false,
+    birthday: false,
+    businessMeeting: false,
+    childHoliday: false,
+    romantic: false,
+    thematicEvent: false,
+    familyHoliday: false,
+    parking: false,
+    terrace: false,
+    openNow: false,
+  };
+
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +(searchParams.get("page") || 1);
-  const services = searchParams.getAll("services");
+  const cuisines = searchParams.getAll("cuisines");
+  const searchOptions = searchParams.getAll("searchOptions");
+  const services = cuisines.concat(searchOptions);
 
   const { cafes, loading, error } = useAppSelector((state) => state.cafes);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(cafesActions.init());
-  }, []);
+    let url = "";
+
+    Object.keys(search).forEach((key) => {
+      if (searchOptions.includes(key)) {
+        url += `${key}=true`;
+      } else {
+        url += `${key}=false`;
+      }
+
+      url += "&";
+    });
+
+    if (cuisines.length > 0) {
+      url += `cuisines=${cuisines.join(",")}`;
+
+      url += "&";
+    }
+
+    url += 'city=Kyiv';
+
+    if (services.length === 0) {
+      dispatch(cafesActions.init());
+    } else {
+      dispatch(cafesActions.initFiltered(url));
+    }
+  }, [services.length]);
 
   useEffect(() => {
     window.scrollTo(0, 500);
@@ -44,19 +90,35 @@ export const Home: React.FC = () => {
   };
 
   function toggleService(service: string) {
-    setSearchParams((prev) => {
-      const params = new URLSearchParams(prev);
+    if (cuisines.includes(service)) {
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
 
-      const newServices = services.includes(service)
-        ? services.filter((ch) => ch !== service)
-        : [...services, service];
+        const newCuisines = cuisines.includes(service)
+          ? cuisines.filter((ch) => ch !== service)
+          : [...cuisines, service];
 
-      params.delete("services");
-      newServices.forEach((ch) => params.append("services", ch));
-      params.set("page", "1");
+        params.delete("cuisines");
+        newCuisines.forEach((ch) => params.append("cuisines", ch));
+        params.set("page", "1");
 
-      return params;
-    });
+        return params;
+      });
+    } else {
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
+
+        const newSearchOptions = searchOptions.includes(service)
+          ? searchOptions.filter((ch) => ch !== service)
+          : [...searchOptions, service];
+
+        params.delete("searchOptions");
+        newSearchOptions.forEach((ch) => params.append("searchOptions", ch));
+        params.set("page", "1");
+
+        return params;
+      });
+    }
   }
 
   return (
@@ -94,6 +156,9 @@ export const Home: React.FC = () => {
           ) : (
             <>
               <h1>{`Cafe amount is: ${cafes.length}`}</h1>
+              {!cafes.length && (
+                <h1>There are no cafes with current filters</h1>
+              )}
               <div className="main__cards-container">
                 {currentItems.map((cafe) => (
                   <Card card={cafe} key={cafe.id} />
