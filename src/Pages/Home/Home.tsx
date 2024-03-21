@@ -66,9 +66,9 @@ export const Home: React.FC = () => {
     }
   }, [services.length]);
 
-  useEffect(() => {
-    window.scrollTo(0, 500);
-  }, [page]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 500);
+  // }, [page, services]);
 
   const itemsPerPage = 9;
   const itemOffset = (page - 1) * itemsPerPage;

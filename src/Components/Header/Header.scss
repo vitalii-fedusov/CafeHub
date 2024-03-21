@@ -52,3 +52,11 @@
   }
 }
 
+.auth-modal {
+  display: flex;
+  flex-direction: column;
+
+  &__button {
+    width: 100%;
+  }
+}
