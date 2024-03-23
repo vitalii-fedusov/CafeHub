@@ -6,6 +6,7 @@ export type Cafe = {
   id: string;
   name: string;
   address: string;
+  phoneNumber: string;
   languages: Language[];
   openFromWeekdays: string;
   closeAtWeekdays: string;

@@ -7,7 +7,7 @@ interface IFormInput {
   password: string;
 }
 
-export const LoginPage: React.FC = () => {
+export const RegisterPage: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ export const LoginPage: React.FC = () => {
 
         <div className="auth__content">
           <div>
-            <h3>Вхід</h3>
+            <h3>Реєстрація</h3>
             <p>Привіт! Ти ще не маєш акаунту?</p>
             <p>Реєстрація</p>
 

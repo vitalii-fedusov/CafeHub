@@ -13,6 +13,7 @@ export const Card: React.FC<Props> = ({ card }) => {
   const {
     name,
     address,
+    // phoneNumber,
     urlToGoogleMaps,
     urlOfImage,
     openFromWeekdays,

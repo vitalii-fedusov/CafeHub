@@ -2,13 +2,12 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/cafe-logo.svg";
 import world from "../../assets/icons/world-icon.svg";
 import arrowDown from "../../assets/icons/arrow-down.svg";
 
 const style = {
-  // position: "absolute" as "absolute",
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -16,16 +15,20 @@ const style = {
   width: 630,
   height: 432,
   bgcolor: "#fff",
-  // border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  rowGap: '8px',
 };
 
 export const Header: React.FC = () => {
-  // const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
 
   return (
     <header className="header page__header">
@@ -41,15 +44,6 @@ export const Header: React.FC = () => {
               <span className="top-bar__icon">UA</span>
               <img className="top-bar__icon" src={world} alt="icon world" />
             </li>
-            {/* <li>
-              <button
-                className="top-bar__button"
-                type="button"
-                onClick={() => navigate("/favourites")}
-              >
-                Улюблені кафе
-              </button>
-            </li> */}
 
             <li className="top-bar__item">
               <button
@@ -68,21 +62,33 @@ export const Header: React.FC = () => {
                 <Box sx={style}>
                   <Typography
                     id="modal-modal-title"
-                    variant="h6"
+                    variant="h5"
                     component="h2"
+                    sx={{
+                      fontWeight: 'bold',
+                      margin: '8px',
+                    }}
                   >
                     Авторизація
                   </Typography>
                   <div className="auth-modal">
                     <button
-                      className="top-bar__button auth-modal__button"
+                      className="auth-modal__button top-bar__button"
                       type="button"
+                      onClick={() => {
+                        navigate('/register');
+                        handleClose();
+                      }}
                     >
                       Зареєструватись
                     </button>
                     <button
                       className="auth-modal__button search-bar__search"
                       type="button"
+                      onClick={() => {
+                        navigate('/login');
+                        handleClose();
+                      }}
                     >
                       Вхід в аккаунт
                     </button>

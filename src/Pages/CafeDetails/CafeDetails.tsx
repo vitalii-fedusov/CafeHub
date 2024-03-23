@@ -75,6 +75,7 @@ export const CafeDetails: React.FC = () => {
   const {
     name,
     address,
+    phoneNumber,
     // languages,
     // openFromWeekdays,
     closeAtWeekdays,
@@ -142,8 +143,8 @@ export const CafeDetails: React.FC = () => {
 
           <li className="cafe__item cafe__item--tel">
             <p className="cafe__paragraph">Номер телефону:&nbsp;</p>
-            <a className="cafe__paragraph" href="tel:0994029052">
-              0994029052
+            <a className="cafe__paragraph" href={`tel:${phoneNumber}`}>
+              {phoneNumber}
             </a>
           </li>
 
