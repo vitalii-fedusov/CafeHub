@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/cafe-logo.svg";
 import world from "../../assets/icons/world-icon.svg";
 import arrowDown from "../../assets/icons/arrow-down.svg";
+import { useAppSelector } from "../../app/hooks";
+import UserDwopdownMenu from "../UserDwopdownMenu/UserDwopdownMenu";
 
 const style = {
   position: "absolute",
@@ -17,11 +19,11 @@ const style = {
   bgcolor: "#fff",
   boxShadow: 24,
   p: 4,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  rowGap: '8px',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  rowGap: "8px",
 };
 
 export const Header: React.FC = () => {
@@ -29,6 +31,7 @@ export const Header: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.auth);
 
   return (
     <header className="header page__header">
@@ -46,55 +49,61 @@ export const Header: React.FC = () => {
             </li>
 
             <li className="top-bar__item">
-              <button
-                className="top-bar__button"
-                type="button"
-                onClick={handleOpen}
-              >
-                Вхід
-              </button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h5"
-                    component="h2"
-                    sx={{
-                      fontWeight: 'bold',
-                      margin: '8px',
-                    }}
+              {user ? (
+                <UserDwopdownMenu />
+              ) : (
+                <>
+                  <button
+                    className="top-bar__button"
+                    type="button"
+                    onClick={handleOpen}
                   >
-                    Авторизація
-                  </Typography>
-                  <div className="auth-modal">
-                    <button
-                      className="auth-modal__button top-bar__button"
-                      type="button"
-                      onClick={() => {
-                        navigate('/register');
-                        handleClose();
-                      }}
-                    >
-                      Зареєструватись
-                    </button>
-                    <button
-                      className="auth-modal__button search-bar__search"
-                      type="button"
-                      onClick={() => {
-                        navigate('/login');
-                        handleClose();
-                      }}
-                    >
-                      Вхід в аккаунт
-                    </button>
-                  </div>
-                </Box>
-              </Modal>
+                    Вхід
+                  </button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h5"
+                        component="h2"
+                        sx={{
+                          fontWeight: "bold",
+                          margin: "8px",
+                        }}
+                      >
+                        Авторизація
+                      </Typography>
+                      <div className="auth-modal">
+                        <button
+                          className="auth-modal__button top-bar__button"
+                          type="button"
+                          onClick={() => {
+                            navigate("/register");
+                            handleClose();
+                          }}
+                        >
+                          Зареєструватись
+                        </button>
+                        <button
+                          className="auth-modal__button search-bar__search"
+                          type="button"
+                          onClick={() => {
+                            navigate("/login");
+                            handleClose();
+                          }}
+                        >
+                          Вхід в аккаунт
+                        </button>
+                      </div>
+                    </Box>
+                  </Modal>
+                </>
+              )}
             </li>
           </ul>
         </nav>

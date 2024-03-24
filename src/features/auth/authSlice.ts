@@ -9,8 +9,10 @@ type CafesState = {
   error: string;
 };
 
+const storedUser = localStorage.getItem('user');
+
 const initialState: CafesState = {
-  user: null,
+  user: storedUser ? JSON.parse(storedUser) : null,
   loading: false,
   error: "",
 };
@@ -38,7 +40,12 @@ export const login = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    exit: (state) => {
+      state.user = null;
+      localStorage.removeItem('user');
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
       state.loading = true;
@@ -47,6 +54,7 @@ export const authSlice = createSlice({
     builder.addCase(register.fulfilled, (state, action) => {
       state.user = action.payload;
       state.loading = false;
+      
     });
 
     builder.addCase(register.rejected, (state) => {
@@ -71,4 +79,4 @@ export const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-// export const {} = authSlice.actions;
+export const { exit } = authSlice.actions;

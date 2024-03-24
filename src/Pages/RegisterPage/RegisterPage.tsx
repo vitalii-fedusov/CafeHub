@@ -1,19 +1,56 @@
-import React from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import React, { useState } from "react";
 // eslint-disable-next-line
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import * as authMethods from "../../features/auth/authSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 interface IFormInput {
   email: string;
   password: string;
+  repeatPassword: string;
+  firstName: string;
+  lastName: string;
 }
 
 export const RegisterPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    dispatch(authMethods.register(data))
+      .then((createdUser) => {
+        localStorage.setItem("user", JSON.stringify(createdUser));
+
+        reset();
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
 
   return (
     <>
@@ -34,57 +71,177 @@ export const RegisterPage: React.FC = () => {
         </div>
 
         <div className="auth__content">
-          <div>
-            <h3>Реєстрація</h3>
-            <p>Привіт! Ти ще не маєш акаунту?</p>
-            <p>Реєстрація</p>
+          <div className="auth__block">
+            <h3 className="auth__title">Реєстрація</h3>
+            <p className="auth__message">Привіт! Ти вже маєш акаунт?</p>
+            <a href="#/login" className="auth__redirect-link">
+              <p className="auth__redirect-p">Вхід</p>
+            </a>
 
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label htmlFor="email">
-                  Email <br />
-                  <input
-                    type="email"
-                    id="email"
-                    {...register("email", {
-                      required: true,
-                      minLength: 6,
-                    })}
-                  />
-                </label>
+              <div className="form__block">
+                <TextField
+                  label="Прізвище"
+                  variant="outlined"
+                  size="small"
+                  type="text"
+                  {...register("lastName", {
+                    required: true,
+                  })}
+                  sx={{
+                    width: "100%",
+                    mb: 1,
+                  }}
+                />
 
-                {errors.email?.type === "required" && (
-                  <p>Будь ласка, введіть email</p>
-                )}
-                {errors.email?.type === "minLength" && (
-                  <p>Email повинен бути не меншим ніж 6 символів</p>
+                {errors.lastName?.type === "required" && (
+                  <p className="form__error-message">
+                    Будь ласка, введіть прізвище
+                  </p>
                 )}
               </div>
 
-              <div>
-                <label htmlFor="password">
-                  Пароль <br />
-                  <input
-                    type="password"
-                    id="password"
+              <div className="form__block">
+                <TextField
+                  label="Ім'я"
+                  variant="outlined"
+                  size="small"
+                  type="text"
+                  {...register("firstName", {
+                    required: true,
+                  })}
+                  sx={{
+                    width: "100%",
+                    mb: 1,
+                  }}
+                />
+
+                {errors.firstName?.type === "required" && (
+                  <p className="form__error-message">
+                    Будь ласка, введіть ім&apos;я
+                  </p>
+                )}
+              </div>
+
+              <div className="form__block">
+                <TextField
+                  label="Email"
+                  variant="outlined"
+                  size="small"
+                  type="email"
+                  {...register("email", {
+                    required: true,
+                    minLength: 6,
+                  })}
+                  sx={{
+                    width: "100%",
+                    mb: 1,
+                  }}
+                />
+
+                {errors.email?.type === "required" && (
+                  <p className="form__error-message">
+                    Будь ласка, введіть email
+                  </p>
+                )}
+                {errors.email?.type === "minLength" && (
+                  <p className="form__error-message">
+                    Email повинен бути не меншим ніж 6 символів
+                  </p>
+                )}
+              </div>
+
+              <div className="form__block">
+                <FormControl
+                  sx={{ mb: 1, width: "100%" }}
+                  variant="outlined"
+                  size="small"
+                >
+                  <InputLabel htmlFor="password">Пароль</InputLabel>
+                  <OutlinedInput
                     {...register("password", {
                       required: true,
                       pattern: /^[A-Za-z]+$/i,
                       minLength: 6,
                     })}
+                    type={showPassword ? "text" : "password"}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Пароль"
                   />
-                </label>
+                </FormControl>
 
                 {errors.password?.type === "required" && (
-                  <p>Будь ласка, введіть пароль</p>
+                  <p className="form__error-message">
+                    Будь ласка, введіть пароль
+                  </p>
                 )}
                 {errors.password?.type === "minLength" && (
-                  <p>Пароль повинен бути не меншим ніж 6 символів</p>
+                  <p className="form__error-message">
+                    Пароль повинен бути не меншим ніж 6 символів
+                  </p>
                 )}
               </div>
 
-              <p>Забув пароль?</p>
-              <input type="submit" value="Вхід" />
+              <div className="form__block">
+                <FormControl
+                  sx={{ mb: 1, width: "100%" }}
+                  variant="outlined"
+                  size="small"
+                >
+                  <InputLabel htmlFor="repeatPassword">
+                    Повторіть пароль
+                  </InputLabel>
+                  <OutlinedInput
+                    {...register("repeatPassword", {
+                      required: true,
+                      pattern: /^[A-Za-z]+$/i,
+                      minLength: 6,
+                    })}
+                    type={showPassword ? "text" : "password"}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Повторіть пароль"
+                  />
+                </FormControl>
+
+                {errors.password?.type === "required" && (
+                  <p className="form__error-message">
+                    Будь ласка, введіть пароль
+                  </p>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <p className="form__error-message">
+                    Пароль повинен бути не меншим ніж 6 символів
+                  </p>
+                )}
+              </div>
+
+              <input
+                type="submit"
+                value="Зареєструватись"
+                className="form__submit"
+              />
             </form>
           </div>
         </div>

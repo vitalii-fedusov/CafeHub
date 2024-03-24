@@ -1,9 +1,10 @@
 export type User = {
   id: number;
   email: string;
-  password: string;
+  password?: string;
   repeatPassword?: string;
   firstName: string;
   lastName: string;
-  // verified: boolean;
+  verified?: boolean;
+  name?: string;
 };
