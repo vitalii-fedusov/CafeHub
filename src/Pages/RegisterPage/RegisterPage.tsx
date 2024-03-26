@@ -7,7 +7,7 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 // eslint-disable-next-line
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import * as authMethods from "../../features/auth/authSlice";
@@ -23,17 +23,28 @@ interface IFormInput {
 
 export const RegisterPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [confirmMessage, setConfirmMessage] = useState("");
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({
+    mode: "onBlur",
+  });
+
+  const password = useRef({});
+
+  password.current = watch("password", "");
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     dispatch(authMethods.register(data))
       .then((createdUser) => {
         localStorage.setItem("user", JSON.stringify(createdUser));
+
+        setConfirmMessage("Please check your email for verification");
 
         reset();
       })
@@ -161,7 +172,7 @@ export const RegisterPage: React.FC = () => {
                   <OutlinedInput
                     {...register("password", {
                       required: true,
-                      pattern: /^[A-Za-z]+$/i,
+                      // pattern: /^[A-Za-z]+$/i,
                       minLength: 6,
                     })}
                     type={showPassword ? "text" : "password"}
@@ -205,8 +216,12 @@ export const RegisterPage: React.FC = () => {
                   <OutlinedInput
                     {...register("repeatPassword", {
                       required: true,
-                      pattern: /^[A-Za-z]+$/i,
+                      // pattern: /^[A-Za-z]+$/i,
                       minLength: 6,
+                      validate: (value) =>
+                        value === password.current
+                        || "the passwords do not match",
+                      // value => === password.current || 'the passwords do not match',
                     })}
                     type={showPassword ? "text" : "password"}
                     endAdornment={
@@ -225,15 +240,18 @@ export const RegisterPage: React.FC = () => {
                   />
                 </FormControl>
 
-                {errors.password?.type === "required" && (
+                {errors.repeatPassword?.type === "required" && (
                   <p className="form__error-message">
                     Будь ласка, введіть пароль
                   </p>
                 )}
-                {errors.password?.type === "minLength" && (
+                {errors.repeatPassword?.type === "minLength" && (
                   <p className="form__error-message">
                     Пароль повинен бути не меншим ніж 6 символів
                   </p>
+                )}
+                {errors.repeatPassword && (
+                  <p>{errors.repeatPassword.message}</p>
                 )}
               </div>
 
@@ -243,6 +261,7 @@ export const RegisterPage: React.FC = () => {
                 className="form__submit"
               />
             </form>
+            {confirmMessage && <p>{confirmMessage}</p>}
           </div>
         </div>
       </div>

@@ -29,7 +29,12 @@ export const LoginPage: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>(
+    {
+      mode: 'onBlur',
+    }
+  );
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
 
     dispatch(authMethods.login(data))
