@@ -12,6 +12,7 @@ import { CafeTestimonials } from "../../Components/CafeTestimonials/CafeTestimon
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 // eslint-disable-next-line
 import * as selectedCafeActions from "../../features/SelectedCafe/selectedCafeSlice";
+import { LikeButton } from "../../Components/LikeButton/LikeButton";
 
 enum CafeInfoSections {
   DESCRIPTION = "Опис",
@@ -52,7 +53,7 @@ export const CafeDetails: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      selectedCafeActions.getSelectedCafe(+location.pathname.replace('/', ''))
+      selectedCafeActions.getSelectedCafe(+location.pathname.replace("/", ""))
     );
   }, [location.pathname]);
 
@@ -84,12 +85,9 @@ export const CafeDetails: React.FC = () => {
     // score,
     urlToGoogleMaps,
     urlOfImage,
-    // comments,
     webSite,
-    // images,
     averageBill,
     score,
-    // description,
   } = selectedCafe;
 
   const weekdaysHours = `${getValidTime(openFromWeekdays)}-${getValidTime(closeAtWeekdays)} `;
@@ -102,17 +100,13 @@ export const CafeDetails: React.FC = () => {
           className="button"
           id="backButton"
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/home")}
         ></button>
         <label htmlFor="backButton">Назад</label>
       </div>
 
       <div className="cafe main__cafe">
-        <a
-          href={webSite}
-          target="blank"
-          className="cafe__main-link"
-        >
+        <a href={webSite} target="blank" className="cafe__main-link">
           <img className="cafe__image" src={urlOfImage} alt={name} />
         </a>
 
@@ -162,20 +156,7 @@ export const CafeDetails: React.FC = () => {
           </li>
         </ul>
 
-        <div className="cafe__buttons">
-          <div className="button-wrap cafe__button-wrap">
-            {/* eslint-disable-next-line */}
-            <button
-              className="button button--like"
-              id="likeButton"
-              type="button"
-            ></button>
-            <label htmlFor="likeButton">Додати в улюблене</label>
-          </div>
-          <button className="search-bar__search cafe__menu" type="button">
-            Меню
-          </button>
-        </div>
+        <LikeButton />
       </div>
 
       <StyledEngineProvider injectFirst>

@@ -7,4 +7,5 @@ export type User = {
   lastName: string;
   verified?: boolean;
   name?: string;
+  token?: string;
 };

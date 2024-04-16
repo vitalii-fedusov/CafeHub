@@ -22,29 +22,24 @@ interface IFormInput {
 export const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, error } = useAppSelector((state) => state.auth);
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<IFormInput>(
-    {
-      mode: 'onBlur',
-    }
-  );
+  } = useForm<IFormInput>({
+    mode: "onBlur",
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-
     dispatch(authMethods.login(data))
-      .then((createdUser) => {
-        localStorage.setItem("user", JSON.stringify(createdUser));
-
+      .then(() => {
         reset();
       })
-      .catch((error) => {
-        throw new Error(error);
+      .catch((e) => {
+        throw new Error(e);
       });
   };
 
@@ -59,7 +54,7 @@ export const LoginPage: React.FC = () => {
   };
 
   if (user) {
-    navigate(-1);
+    navigate('/home');
   }
 
   return (
@@ -88,14 +83,17 @@ export const LoginPage: React.FC = () => {
               <p className="auth__redirect-p">Реєстрація</p>
             </a>
 
+            {error && <h3>Емейл або пароль невірний</h3>}
+
             <form onSubmit={handleSubmit(onSubmit)} className="form">
               <div className="form__block">
                 <TextField
                   label="Email"
                   variant="outlined"
+                  color="success"
                   size="small"
-                  id="email"
                   type="email"
+                  autoComplete="off"
                   {...register("email", {
                     required: true,
                     minLength: 6,
@@ -104,6 +102,7 @@ export const LoginPage: React.FC = () => {
                     width: "100%",
                     mb: 1,
                   }}
+                  error={!!errors.email}
                 />
 
                 {errors.email?.type === "required" && (
@@ -124,13 +123,24 @@ export const LoginPage: React.FC = () => {
                   variant="outlined"
                   size="small"
                 >
-                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <InputLabel
+                    htmlFor="password"
+                    color="success"
+                    error={!!errors.password}
+                  >
+                    Password
+                  </InputLabel>
                   <OutlinedInput
                     {...register("password", {
                       required: true,
-                      // pattern: /^[A-Za-z]+$/i,
                       minLength: 6,
                     })}
+                    autoComplete="off"
+                    color="success"
+                    sx={{
+                      width: "100%",
+                      mb: 1,
+                    }}
                     type={showPassword ? "text" : "password"}
                     endAdornment={
                       <InputAdornment position="end">
@@ -145,6 +155,7 @@ export const LoginPage: React.FC = () => {
                       </InputAdornment>
                     }
                     label="Password"
+                    error={!!errors.password}
                   />
                 </FormControl>
 

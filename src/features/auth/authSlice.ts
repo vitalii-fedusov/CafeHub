@@ -54,7 +54,7 @@ export const authSlice = createSlice({
     builder.addCase(register.fulfilled, (state, action) => {
       state.user = action.payload;
       state.loading = false;
-      
+      localStorage.setItem("user", JSON.stringify(action.payload));
     });
 
     builder.addCase(register.rejected, (state) => {
@@ -69,6 +69,8 @@ export const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = action.payload;
       state.loading = false;
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem('token', action.payload.token || '');
     });
 
     builder.addCase(login.rejected, (state) => {

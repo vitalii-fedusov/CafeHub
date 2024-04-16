@@ -11,7 +11,7 @@ import React, { useRef, useState } from "react";
 // eslint-disable-next-line
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import * as authMethods from "../../features/auth/authSlice";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 interface IFormInput {
   email: string;
@@ -24,6 +24,7 @@ interface IFormInput {
 export const RegisterPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const [confirmMessage, setConfirmMessage] = useState("");
+  const { error } = useAppSelector((state) => state.auth);
 
   const {
     register,
@@ -41,15 +42,15 @@ export const RegisterPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     dispatch(authMethods.register(data))
-      .then((createdUser) => {
-        localStorage.setItem("user", JSON.stringify(createdUser));
-
-        setConfirmMessage("Please check your email for verification");
+      .then(() => {
+        if (!error) {
+          setConfirmMessage("Please check your email for verification");
+        }
 
         reset();
       })
-      .catch((error) => {
-        throw new Error(error);
+      .catch((e) => {
+        throw new Error(e);
       });
   };
 
@@ -89,13 +90,18 @@ export const RegisterPage: React.FC = () => {
               <p className="auth__redirect-p">Вхід</p>
             </a>
 
+            {error && (<h3>Щось пішло не так, спробуйте ще раз</h3>)}
+
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="form__block">
                 <TextField
                   label="Прізвище"
                   variant="outlined"
                   size="small"
+                  color="success"
+                  error={!!errors.lastName}
                   type="text"
+                  autoComplete="off"
                   {...register("lastName", {
                     required: true,
                   })}
@@ -118,6 +124,9 @@ export const RegisterPage: React.FC = () => {
                   variant="outlined"
                   size="small"
                   type="text"
+                  color="success"
+                  autoComplete="off"
+                  error={!!errors.firstName}
                   {...register("firstName", {
                     required: true,
                   })}
@@ -140,6 +149,9 @@ export const RegisterPage: React.FC = () => {
                   variant="outlined"
                   size="small"
                   type="email"
+                  color="success"
+                  autoComplete="off"
+                  error={!!errors.email}
                   {...register("email", {
                     required: true,
                     minLength: 6,
@@ -168,13 +180,21 @@ export const RegisterPage: React.FC = () => {
                   variant="outlined"
                   size="small"
                 >
-                  <InputLabel htmlFor="password">Пароль</InputLabel>
+                  <InputLabel
+                    htmlFor="password"
+                    color="success"
+                    error={!!errors.password}
+                  >
+                    Пароль
+                  </InputLabel>
                   <OutlinedInput
                     {...register("password", {
                       required: true,
-                      // pattern: /^[A-Za-z]+$/i,
                       minLength: 6,
                     })}
+                    autoComplete="off"
+                    color="success"
+                    error={!!errors.password}
                     type={showPassword ? "text" : "password"}
                     endAdornment={
                       <InputAdornment position="end">
@@ -210,19 +230,25 @@ export const RegisterPage: React.FC = () => {
                   variant="outlined"
                   size="small"
                 >
-                  <InputLabel htmlFor="repeatPassword">
+                  <InputLabel
+                    htmlFor="repeatPassword"
+                    color="success"
+                    error={!!errors.repeatPassword}
+                  >
                     Повторіть пароль
                   </InputLabel>
                   <OutlinedInput
                     {...register("repeatPassword", {
                       required: true,
-                      // pattern: /^[A-Za-z]+$/i,
                       minLength: 6,
                       validate: (value) =>
-                        value === password.current
-                        || "the passwords do not match",
-                      // value => === password.current || 'the passwords do not match',
+                        // eslint-disable-next-line
+                        value === password.current ||
+                        "the passwords do not match",
                     })}
+                    autoComplete="off"
+                    color="success"
+                    error={!!errors.repeatPassword}
                     type={showPassword ? "text" : "password"}
                     endAdornment={
                       <InputAdornment position="end">
@@ -261,7 +287,7 @@ export const RegisterPage: React.FC = () => {
                 className="form__submit"
               />
             </form>
-            {confirmMessage && <p>{confirmMessage}</p>}
+            {confirmMessage && !error && <p>{confirmMessage}</p>}
           </div>
         </div>
       </div>
