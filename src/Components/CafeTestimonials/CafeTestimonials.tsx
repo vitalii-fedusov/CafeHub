@@ -3,6 +3,8 @@ import ReactPaginate from "react-paginate";
 import { useSearchParams } from "react-router-dom";
 import { Rating } from "@mui/material";
 import girlFaceAvatar from "../../assets/images/girl-face-avatar.png";
+import { useAppSelector } from "../../app/hooks";
+import { ModalLoginWindow } from "../ModalLoginWindow/ModalLoginWindow";
 
 export const CafeTestimonials: React.FC = () => {
   const testimonials = [
@@ -59,6 +61,11 @@ export const CafeTestimonials: React.FC = () => {
     });
   };
 
+  const { user } = useAppSelector((state) => state.auth);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div className="cafe-info__testimonials-section testimonials">
       {currentItems.map((testimonial) => (
@@ -95,9 +102,18 @@ export const CafeTestimonials: React.FC = () => {
         forcePage={page - 1}
       />
 
-      <button className="search-bar__search testimonials__button" type="button">
+      <button
+        className="search-bar__search testimonials__button"
+        type="button"
+        onClick={() => {
+          if (!user) {
+            handleOpen();
+          }
+        }}
+      >
         Додати відгук
       </button>
+      <ModalLoginWindow open={open} handleClose={handleClose} />
     </div>
   );
 };

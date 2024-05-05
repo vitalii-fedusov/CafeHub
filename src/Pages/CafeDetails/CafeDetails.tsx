@@ -208,5 +208,4 @@ export const CafeDetails: React.FC = () => {
       <CardSwiper />
     </>
   );
-  // }
 };

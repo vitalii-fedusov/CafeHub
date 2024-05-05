@@ -56,6 +56,7 @@ const favouritesCafesSlice = createSlice({
 
     builder.addCase(like.fulfilled, (state, action) => {
       state.favouritesCafes = [...state.favouritesCafes, action.payload];
+      // state.favouritesCafes = [...action.payload];
       state.loading = false;
     });
 
@@ -69,11 +70,23 @@ const favouritesCafesSlice = createSlice({
     });
 
     builder.addCase(dislike.fulfilled, (state, action) => {
-      state.favouritesCafes = [...state.favouritesCafes].filter(
-        (cafe) => cafe.id !== action.payload
+      const deletedCafe = action.payload as Cafe;
+
+      state.favouritesCafes = state.favouritesCafes.filter(
+        (cafe) => cafe.id !== deletedCafe.id
       );
       state.loading = false;
     });
+    // builder.addCase(dislike.fulfilled, (state, action) => {
+    // state.favouritesCafes = [action.payload];
+
+    // const deletedCafeId = action.meta.arg.toString();
+
+    // state.favouritesCafes = state.favouritesCafes.filter(
+    //   (cafe) => cafe.id.toString() !== deletedCafeId
+    // );
+    //   state.loading = false;
+    // });
 
     builder.addCase(dislike.rejected, (state) => {
       state.loading = false;
