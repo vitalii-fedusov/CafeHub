@@ -5,6 +5,7 @@ import { Rating } from "@mui/material";
 import girlFaceAvatar from "../../assets/images/girl-face-avatar.png";
 import { useAppSelector } from "../../app/hooks";
 import { ModalLoginWindow } from "../ModalLoginWindow/ModalLoginWindow";
+import { ModalComment } from "../ModalComment/ModalComment";
 
 export const CafeTestimonials: React.FC = () => {
   const testimonials = [
@@ -61,6 +62,10 @@ export const CafeTestimonials: React.FC = () => {
     });
   };
 
+  // const [feedBackFieldIsActive, setFeedBackFieldIsActive] = useState(false);
+  // const toggleFeedbackField = () =>
+  //   setFeedBackFieldIsActive(!feedBackFieldIsActive);
+
   const { user } = useAppSelector((state) => state.auth);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -102,18 +107,27 @@ export const CafeTestimonials: React.FC = () => {
         forcePage={page - 1}
       />
 
+
       <button
         className="search-bar__search testimonials__button"
         type="button"
-        onClick={() => {
-          if (!user) {
-            handleOpen();
-          }
-        }}
+        // onClick={() => {
+        //   if (!user) {
+        //     handleOpen();
+        //   } else {
+        //     toggleFeedbackField();
+        //   }
+        // }}
+        onClick={handleOpen}
       >
         Додати відгук
       </button>
-      <ModalLoginWindow open={open} handleClose={handleClose} />
+      {user ? (
+        <ModalComment open={open} handleClose={handleClose} />
+      ) : (
+        <ModalLoginWindow open={open} handleClose={handleClose} />
+      )}
+      
     </div>
   );
 };

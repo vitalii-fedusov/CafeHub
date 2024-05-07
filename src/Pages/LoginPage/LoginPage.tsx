@@ -41,6 +41,8 @@ export const LoginPage: React.FC = () => {
       .catch((e) => {
         throw new Error(e);
       });
+
+    navigate(-1);
   };
 
   const [showPassword, setShowPassword] = useState(false);
