@@ -62,10 +62,6 @@ export const CafeTestimonials: React.FC = () => {
     });
   };
 
-  // const [feedBackFieldIsActive, setFeedBackFieldIsActive] = useState(false);
-  // const toggleFeedbackField = () =>
-  //   setFeedBackFieldIsActive(!feedBackFieldIsActive);
-
   const { user } = useAppSelector((state) => state.auth);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -111,13 +107,6 @@ export const CafeTestimonials: React.FC = () => {
       <button
         className="search-bar__search testimonials__button"
         type="button"
-        // onClick={() => {
-        //   if (!user) {
-        //     handleOpen();
-        //   } else {
-        //     toggleFeedbackField();
-        //   }
-        // }}
         onClick={handleOpen}
       >
         Додати відгук

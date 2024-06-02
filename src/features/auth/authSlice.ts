@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "../../Types/User";
-import { createUser, loginUser } from "../../api/user";
+import { createUser, getNewToken, loginUser } from "../../api/user";
 /* eslint-disable no-param-reassign */
 
 type CafesState = {
@@ -34,6 +34,12 @@ export const login = createAsyncThunk(
   "auth/login",
   ({ email, password }: Pick<User, "email" | "password">) => {
     return loginUser({email, password});
+  }
+);
+
+export const refreshToken = createAsyncThunk(
+  "auth/refreshToken", () => {
+    return getNewToken();
   }
 );
 
@@ -77,6 +83,20 @@ export const authSlice = createSlice({
     builder.addCase(login.rejected, (state) => {
       state.loading = false;
       state.error = "Error, can not login user";
+    });
+
+    builder.addCase(refreshToken.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(refreshToken.fulfilled, (state, action) => {
+      state.loading = false;
+      localStorage.setItem('token', action.payload.token);
+    });
+
+    builder.addCase(refreshToken.rejected, (state) => {
+      state.loading = false;
+      state.error = "Error, can not refresh token";
     });
   },
 });

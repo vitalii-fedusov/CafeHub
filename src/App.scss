@@ -77,6 +77,14 @@ iframe {
       gap: $grid-col-gap;
       margin-bottom: 32px;
     }
+
+    &-cabinet-container {
+      grid-column: span 8;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: $grid-col-gap;
+      margin-bottom: 32px;
+    }
   }
 
   &__cafe {
