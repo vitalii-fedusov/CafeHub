@@ -5,6 +5,7 @@ import selectedCafeReducer from "../features/SelectedCafe/selectedCafeSlice";
 import authReducer from "../features/auth/authSlice";
 // eslint-disable-next-line
 import favouritesReducer from "../features/favouritesCafes/favouritesCafesSlice";
+import commentsReducer from "../features/comments/commentsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     // sortOrder: sortOrderReducer,
     auth: authReducer,
     favourites: favouritesReducer,
+    comments: commentsReducer,
   },
 });
 

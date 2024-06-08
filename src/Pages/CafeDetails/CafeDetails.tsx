@@ -50,16 +50,15 @@ export const CafeDetails: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const location = useLocation();
+  const { selectedCafe, loading, error } = useAppSelector(
+    (state) => state.selectedCafe
+  );
 
   useEffect(() => {
     dispatch(
       selectedCafeActions.getSelectedCafe(+location.pathname.replace("/", ""))
     );
-  }, [location.pathname]);
-
-  const { selectedCafe, loading, error } = useAppSelector(
-    (state) => state.selectedCafe
-  );
+  }, [location.pathname, dispatch]);
 
   if (loading) {
     return <h1>Loading...</h1>;

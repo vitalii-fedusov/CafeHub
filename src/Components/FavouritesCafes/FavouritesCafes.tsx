@@ -12,7 +12,7 @@ export const FavouritesCafes: React.FC = () => {
 
   useEffect(() => {
     dispatch(initFavourites());
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return <h1>Loading...</h1>;

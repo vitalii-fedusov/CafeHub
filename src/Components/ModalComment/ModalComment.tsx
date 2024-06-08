@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Modal, Rating, Typography } from "@mui/material";
 // eslint-disable-next-line
 import { Input as BaseInput, InputProps } from "@mui/base/Input";
 // eslint-disable-next-line
 import { styled } from "@mui/system";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import * as commentsActions from "../../features/comments/commentsSlice";
+/* eslint-disable @typescript-eslint/indent */
+// eslint-disable-next-line
+import * as selectedCafeActions from "../../features/SelectedCafe/selectedCafeSlice";
+// import { useLocation } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -70,8 +76,8 @@ const TextareaElement = styled("textarea", {
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
   border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
   box-shadow: 0px 2px 4px ${
-  theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
-};
+    theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
+  };
 
   &:hover {
     border-color: ${blue[400]};
@@ -127,14 +133,34 @@ export const InputMultiline: React.FC<InputMultilineProps> = ({
 };
 
 export const ModalComment: React.FC<Props> = ({ open, handleClose }) => {
-  const [value, setValue] = React.useState<number | null>(0);
-  const [comment, setComment] = React.useState<string>("");
+  const [value, setValue] = useState<number | null>(0);
+  const [comment, setComment] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((state) => state.comments);
+  const id = useAppSelector((state) => state.selectedCafe.selectedCafe?.id);
+  // const location = useLocation();
 
   const handleSubmit = () => {
+    dispatch(commentsActions.createComment({ cafeId: +(id || 0), comment }));
+    dispatch(
+      commentsActions.assignScore({ cafeId: +(id || 0), score: value || 0 })
+      // commentsActions.assignScore(+(id || 0), value || 0)
+    );
+    // dispatch(
+    //   selectedCafeActions.getSelectedCafe(+location.pathname.replace("/", ""))
+    // );
     setComment("");
     setValue(0);
     handleClose();
   };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
 
   return (
     <Modal

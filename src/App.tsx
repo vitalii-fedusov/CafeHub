@@ -5,8 +5,9 @@ import { Header } from "./Components/Header/Header";
 import { Footer } from "./Components/Footer/Footer";
 import { LoginPage } from "./Pages/LoginPage/LoginPage";
 import { RegisterPage } from "./Pages/RegisterPage/RegisterPage";
-import { useAppDispatch } from "./app/hooks";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { refreshToken } from "./features/auth/authSlice";
+import * as authActions from "./features/auth/authSlice";
 
 export const App: React.FC = () => {
   const location = useLocation();
@@ -14,14 +15,23 @@ export const App: React.FC = () => {
   const register = location.pathname === "/register";
   const dispatch = useAppDispatch();
   const refreshInterval = 2000 * 1000; // 2,000 seconds
+  const { user } = useAppSelector((state) => state.auth);
 
+  // eslint-disable-next-line
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(refreshToken());
-    }, refreshInterval);
+    if (user) {
+      const interval = setInterval(() => {
+        dispatch(refreshToken());
+      }, refreshInterval);
 
-    return () => clearInterval(interval);
-  }, [dispatch, refreshInterval]);
+      return () => clearInterval(interval);
+    }
+
+    if (!user) {
+      dispatch(authActions.exit());
+    }
+
+  }, [dispatch, refreshInterval, user]);
 
   if (login) {
     return <LoginPage />;
