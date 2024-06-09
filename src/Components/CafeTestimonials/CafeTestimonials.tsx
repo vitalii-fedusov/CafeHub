@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSearchParams } from "react-router-dom";
 import { Rating } from "@mui/material";
@@ -6,20 +6,17 @@ import girlFaceAvatar from "../../assets/images/girl-face-avatar.png";
 import { useAppSelector } from "../../app/hooks";
 import { ModalLoginWindow } from "../ModalLoginWindow/ModalLoginWindow";
 import { ModalComment } from "../ModalComment/ModalComment";
-// eslint-disable-next-line
-import * as selectedCafeActions from "../../features/SelectedCafe/selectedCafeSlice";
 
 export const CafeTestimonials: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +(searchParams.get("page") || 1);
   const { loading, error } = useAppSelector((state) => state.comments);
 
-  // eslint-disable-next-line
-  const testimonials =
-    useAppSelector((state) => state.selectedCafe.selectedCafe?.comments) || [];
   const { selectedCafe } = useAppSelector((state) => state.selectedCafe);
+  const [comments, setComments] = useState(selectedCafe?.comments || []);
+  const testimonials = comments;
 
-  const itemsPerPage = 9;
+  const itemsPerPage = 5;
   const itemOffset = (page - 1) * itemsPerPage;
 
   const endOffset = itemOffset + itemsPerPage;
@@ -73,7 +70,7 @@ export const CafeTestimonials: React.FC = () => {
                 </li>
                 <li className="comment__item">
                   <Rating
-                    value={selectedCafe?.score}
+                    value={testimonial.score}
                     readOnly
                     precision={0.5}
                   />
@@ -85,6 +82,7 @@ export const CafeTestimonials: React.FC = () => {
             </div>
           ))}
           <ReactPaginate
+            className="testimonials__pagination"
             breakLabel="..."
             nextLabel=""
             onPageChange={handlePageClick}
@@ -94,36 +92,27 @@ export const CafeTestimonials: React.FC = () => {
             renderOnZeroPageCount={null}
             forcePage={page - 1}
           />
-
-          <button
-            className="search-bar__search testimonials__button"
-            type="button"
-            onClick={handleOpen}
-          >
-            Додати відгук
-          </button>
-          {user ? (
-            <ModalComment open={open} handleClose={handleClose} />
-          ) : (
-            <ModalLoginWindow open={open} handleClose={handleClose} />
-          )}
         </div>
       ) : (
         <>
           <h1>There are no comments on this cafe</h1>
-          <button
-            className="search-bar__search testimonials__button"
-            type="button"
-            onClick={handleOpen}
-          >
-            Додати відгук
-          </button>
-          {user ? (
-            <ModalComment open={open} handleClose={handleClose} />
-          ) : (
-            <ModalLoginWindow open={open} handleClose={handleClose} />
-          )}
         </>
+      )}
+      <button
+        className="search-bar__search testimonials__button"
+        type="button"
+        onClick={handleOpen}
+      >
+        Додати відгук
+      </button>
+      {user ? (
+        <ModalComment
+          open={open}
+          handleClose={handleClose}
+          setComments={setComments}
+        />
+      ) : (
+        <ModalLoginWindow open={open} handleClose={handleClose} />
       )}
     </>
   );

@@ -14,7 +14,7 @@ export const App: React.FC = () => {
   const login = location.pathname === "/login";
   const register = location.pathname === "/register";
   const dispatch = useAppDispatch();
-  const refreshInterval = 2000 * 1000; // 2,000 seconds
+  const refreshInterval = 1000 * 1000; // 1,000 seconds
   const { user } = useAppSelector((state) => state.auth);
 
   // eslint-disable-next-line
@@ -22,6 +22,7 @@ export const App: React.FC = () => {
     if (user) {
       const interval = setInterval(() => {
         dispatch(refreshToken());
+        // console.log("token was refreshed!");
       }, refreshInterval);
 
       return () => clearInterval(interval);
@@ -30,7 +31,6 @@ export const App: React.FC = () => {
     if (!user) {
       dispatch(authActions.exit());
     }
-
   }, [dispatch, refreshInterval, user]);
 
   if (login) {

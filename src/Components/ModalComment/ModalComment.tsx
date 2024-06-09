@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { Box, Modal, Rating, Typography } from "@mui/material";
-// eslint-disable-next-line
 import { Input as BaseInput, InputProps } from "@mui/base/Input";
-// eslint-disable-next-line
 import { styled } from "@mui/system";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import * as commentsActions from "../../features/comments/commentsSlice";
+import { Comment } from "../../Types/Comment";
 /* eslint-disable @typescript-eslint/indent */
-// eslint-disable-next-line
-import * as selectedCafeActions from "../../features/SelectedCafe/selectedCafeSlice";
-// import { useLocation } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -31,6 +27,7 @@ const style = {
 type Props = {
   open: boolean;
   handleClose: () => void;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 };
 
 const blue = {
@@ -132,23 +129,29 @@ export const InputMultiline: React.FC<InputMultilineProps> = ({
   );
 };
 
-export const ModalComment: React.FC<Props> = ({ open, handleClose }) => {
+export const ModalComment: React.FC<Props> = ({
+  open,
+  handleClose,
+  setComments,
+}) => {
   const [value, setValue] = useState<number | null>(0);
   const [comment, setComment] = useState<string>("");
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state) => state.comments);
   const id = useAppSelector((state) => state.selectedCafe.selectedCafe?.id);
-  // const location = useLocation();
 
   const handleSubmit = () => {
-    dispatch(commentsActions.createComment({ cafeId: +(id || 0), comment }));
     dispatch(
-      commentsActions.assignScore({ cafeId: +(id || 0), score: value || 0 })
-      // commentsActions.assignScore(+(id || 0), value || 0)
-    );
-    // dispatch(
-    //   selectedCafeActions.getSelectedCafe(+location.pathname.replace("/", ""))
-    // );
+      commentsActions.createComment({
+        cafeId: +(id || 0),
+        comment,
+        score: value || 5,
+      })
+    ).then((resp) => {
+      const newComment = resp.payload as Comment;
+
+      setComments((prev: Comment[]) => [newComment, ...prev]);
+    });
     setComment("");
     setValue(0);
     handleClose();
@@ -195,7 +198,7 @@ export const ModalComment: React.FC<Props> = ({ open, handleClose }) => {
           <Rating
             name="simple-controlled"
             value={value}
-            onChange={(event, newValue) => {
+            onChange={(_event, newValue) => {
               setValue(newValue);
             }}
           />

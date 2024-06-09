@@ -5,12 +5,8 @@ export const getMyComments = () => {
   return client.get<Comment[]>('/comments/mine');
 };
 
-export const addComment = (cafeId: number, comment: string) => {
-  return client.post<any>(`/comments/${cafeId}`, {comment});
-};
-
-export const setScore = (cafeId: number, score: number) => {
-  return client.post<any>(`/cafes/scores?cafeId=${cafeId}&score=${score}`);
+export const addComment = (cafeId: number, comment: string, score: number) => {
+  return client.post<Comment>(`/comments/${cafeId}`, {comment, score});
 };
 
 export const getAllComments = () => {

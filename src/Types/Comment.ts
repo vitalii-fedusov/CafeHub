@@ -1,8 +1,12 @@
 import { User } from "./User";
 
 export type Comment = {
-  id: number;
-  time: string;
-  user: User;
+  cafeId: number;
+  cafeName: string;
   comment: string;
+  id: number;
+  score: number;
+  time: string;
+  urlOfImage: string;
+  user: User;
 };

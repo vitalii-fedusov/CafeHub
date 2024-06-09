@@ -1,12 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Comment } from "../../Types/Comment";
-import {
-  addComment,
-  getAllComments,
-  getMyComments,
-  setScore,
-} from "../../api/comments";
+import { addComment, getAllComments, getMyComments } from "../../api/comments";
 
 type MyComments = {
   myComments: Comment[];
@@ -38,15 +33,16 @@ export const initAllComments = createAsyncThunk(
 
 export const createComment = createAsyncThunk(
   "comments/addComment",
-  ({ cafeId, comment }: { cafeId: number; comment: string }) => {
-    return addComment(cafeId, comment);
-  }
-);
-
-export const assignScore = createAsyncThunk(
-  "comments/setScore",
-  ({ cafeId, score }: { cafeId: number; score: number }) => {
-    return setScore(cafeId, score);
+  ({
+    cafeId,
+    comment,
+    score,
+  }: {
+    cafeId: number;
+    comment: string;
+    score: number;
+  }) => {
+    return addComment(cafeId, comment, score);
   }
 );
 
@@ -92,19 +88,6 @@ const commentsSlice = createSlice({
     });
 
     builder.addCase(createComment.rejected, (state) => {
-      state.loading = false;
-      state.error = "Error";
-    });
-
-    builder.addCase(assignScore.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(assignScore.fulfilled, (state) => {
-      state.loading = false;
-    });
-
-    builder.addCase(assignScore.rejected, (state) => {
       state.loading = false;
       state.error = "Error";
     });
