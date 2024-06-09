@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.7c57378e.css",
-    "main.js": "./static/js/main.5a2b66fc.js",
+    "main.css": "./static/css/main.2f376782.css",
+    "main.js": "./static/js/main.08d28819.js",
     "static/media/main-bg-image.jpg": "./static/media/main-bg-image.a4afbe59d7d850b9411f.jpg",
     "static/media/auth-bg.png": "./static/media/auth-bg.237d54b52fd889570bb6.png",
     "static/media/cafe-logo.svg": "./static/media/cafe-logo.f09f34bbff95618c0656d511adb7bcc5.svg",
@@ -21,11 +21,11 @@
     "static/media/arrow-down.svg": "./static/media/arrow-down.086b474cd929025b4fefa32b91a73e11.svg",
     "static/media/arrow-left.svg": "./static/media/arrow-left.e9493111891c01cb4ab3.svg",
     "static/media/arrow-right.svg": "./static/media/arrow-right.8d024af755b1f7350677f84d84905bcb.svg",
-    "main.7c57378e.css.map": "./static/css/main.7c57378e.css.map",
-    "main.5a2b66fc.js.map": "./static/js/main.5a2b66fc.js.map"
+    "main.2f376782.css.map": "./static/css/main.2f376782.css.map",
+    "main.08d28819.js.map": "./static/js/main.08d28819.js.map"
   },
   "entrypoints": [
-    "static/css/main.7c57378e.css",
-    "static/js/main.5a2b66fc.js"
+    "static/css/main.2f376782.css",
+    "static/js/main.08d28819.js"
   ]
 }
