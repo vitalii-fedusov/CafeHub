@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Rating } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import * as commentsActions from "../../features/comments/commentsSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import girlFaceAvatar from "../../assets/images/girl-face-avatar.png";
 import mapPin from "../../assets/icons/tabler-icon-map-pin.svg";
+import { ModalUpdateComment } from "../ModalUpdateComment/ModalUpdateComment";
+import { Comment } from "../../Types/Comment";
 
 export const MyComments: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +14,22 @@ export const MyComments: React.FC = () => {
     (state) => state.comments
   );
   const { cafes } = useAppSelector((state) => state.cafes);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleDelete = (commentId: number) => {
+    dispatch(commentsActions.deleteMyComment(commentId));
+  };
+
+  const handleClose = () => {
+    setIsEditing(false);
+  };
+
+  const [prevComment, setPrevComment] = useState<Comment | null>();
+
+  const handleOpen = (comment: Comment) => {
+    setPrevComment(comment);
+    setIsEditing(true);
+  };
 
   useEffect(() => {
     dispatch(commentsActions.initMyComments());
@@ -40,7 +58,7 @@ export const MyComments: React.FC = () => {
                 <div className="my-comments__cafe">
                   <NavLink to={`/${comment.cafeId}`} className="card__link">
                     <img
-                      style={{maxHeight: "100px"}}
+                      style={{ maxHeight: "100px" }}
                       className="card__image"
                       src={comment.urlOfImage}
                       alt={comment.cafeName}
@@ -97,7 +115,9 @@ export const MyComments: React.FC = () => {
                     style={{ marginBottom: "16px" }}
                     className="search-bar__search testimonials__button"
                     type="button"
-                    // onClick={handleSubmit}
+                    onClick={() => {
+                      handleOpen(comment);
+                    }}
                   >
                     Редагувати відгук
                   </button>
@@ -105,7 +125,7 @@ export const MyComments: React.FC = () => {
                     style={{ width: "100%" }}
                     className="testimonials__button top-bar__button"
                     type="button"
-                    // onClick={handleSubmit}
+                    onClick={() => handleDelete(comment.id)}
                   >
                     Видалити відгук
                   </button>
@@ -116,6 +136,13 @@ export const MyComments: React.FC = () => {
         </>
       ) : (
         <h1>There are no comments yet</h1>
+      )}
+      {prevComment && (
+        <ModalUpdateComment
+          prevComment={prevComment}
+          open={isEditing}
+          handleClose={handleClose}
+        />
       )}
     </>
   );

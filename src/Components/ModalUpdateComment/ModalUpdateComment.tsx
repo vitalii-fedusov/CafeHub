@@ -25,9 +25,9 @@ const style = {
 };
 
 type Props = {
+  prevComment: Comment | null | undefined;
   open: boolean;
   handleClose: () => void;
-  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 };
 
 const blue = {
@@ -129,31 +129,23 @@ export const InputMultiline: React.FC<InputMultilineProps> = ({
   );
 };
 
-export const ModalComment: React.FC<Props> = ({
+export const ModalUpdateComment: React.FC<Props> = ({
   open,
   handleClose,
-  setComments,
+  prevComment,
 }) => {
-  const [value, setValue] = useState<number | null>(null);
-  const [comment, setComment] = useState<string>("");
+  const [value, setValue] = useState<number | null>(prevComment?.score || 0);
+  const [comment, setComment] = useState<string>(prevComment?.comment || '');
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state) => state.comments);
-  const id = useAppSelector((state) => state.selectedCafe.selectedCafe?.id);
-
   const handleSubmit = () => {
     dispatch(
-      commentsActions.createComment({
-        cafeId: +(id || 0),
+      commentsActions.changeComment({
+        commentId: prevComment?.id || 0,
         comment,
         score: value || 5,
       })
-    ).then((resp) => {
-      const newComment = resp.payload as Comment;
-
-      setComments((prev: Comment[]) => [newComment, ...prev]);
-    });
-    setComment("");
-    setValue(0);
+    );
     handleClose();
   };
 
@@ -207,7 +199,7 @@ export const ModalComment: React.FC<Props> = ({
             type="button"
             onClick={handleSubmit}
           >
-            Додати відгук
+            Оновити відгук
           </button>
         </Box>
       </Box>

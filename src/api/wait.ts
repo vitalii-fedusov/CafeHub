@@ -7,7 +7,7 @@ export function wait(delay: number) {
   });
 }
 
-type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE";
+type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
 function request<T>(
   url: string,
@@ -40,7 +40,11 @@ function request<T>(
         throw new Error();
       }
 
-      return response.json();
+      if (method !== "DELETE") {
+        return response.json();
+      }
+
+      return response.url;
     });
 }
 
@@ -48,5 +52,6 @@ export const client = {
   get: <T>(url: string) => request<T>(url, "GET"),
   post: <T>(url: string, data?: any) => request<T>(url, "POST", data),
   patch: <T>(url: string, data: any) => request<T>(url, "PATCH", data),
+  put: <T>(url: string, data: any) => request<T>(url, "PUT", data),
   delete: (url: string) => request(url, "DELETE"),
 };
