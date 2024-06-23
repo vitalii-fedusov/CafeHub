@@ -24,13 +24,35 @@ function request<T>(
     };
   }
 
-  if (data) {
-    options.body = JSON.stringify(data);
+  // if (data) {
+  //   options.body = JSON.stringify(data);
 
-    options.headers = {
-      ...options.headers,
-      "Content-Type": "application/json; charset=UTF-8",
-    };
+  //   options.headers = {
+  //     ...options.headers,
+  //     "Content-Type": "application/json; charset=UTF-8",
+  //   };
+
+  //   if (typeof data === File) {
+  //     options.headers = {
+  //       ...options.headers,
+  //       'Content-Type': 'multipart/form-data',
+  //     };
+  //   }
+  // }
+
+  if (data) {
+    if (data.imageFile instanceof File) {
+      const formData = new FormData();
+
+      formData.append('imageFile', data.imageFile);
+      options.body = formData;
+    } else {
+      options.body = JSON.stringify(data);
+      options.headers = {
+        ...options.headers,
+        "Content-Type": "application/json; charset=UTF-8",
+      };
+    }
   }
 
   return wait(300)
