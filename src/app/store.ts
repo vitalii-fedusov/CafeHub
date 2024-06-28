@@ -6,6 +6,7 @@ import authReducer from "../features/auth/authSlice";
 // eslint-disable-next-line
 import favouritesReducer from "../features/favouritesCafes/favouritesCafesSlice";
 import commentsReducer from "../features/comments/commentsSlice";
+import imageReducer from "../features/image/imageSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     auth: authReducer,
     favourites: favouritesReducer,
     comments: commentsReducer,
+    image: imageReducer,
   },
 });
 
