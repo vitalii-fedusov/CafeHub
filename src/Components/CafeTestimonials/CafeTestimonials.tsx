@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSearchParams } from "react-router-dom";
 import { Rating } from "@mui/material";
-import girlFaceAvatar from "../../assets/images/girl-face-avatar.png";
+import avatar1 from "../../assets/images/avatars/avatar-1.png";
 import { useAppSelector } from "../../app/hooks";
 import { ModalLoginWindow } from "../ModalLoginWindow/ModalLoginWindow";
 import { ModalComment } from "../ModalComment/ModalComment";
+import { useLocalStorage } from "../../customHook/useLocalStorage";
 
 export const CafeTestimonials: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +(searchParams.get("page") || 1);
   const { loading, error } = useAppSelector((state) => state.comments);
+  const [myAvatar] = useLocalStorage("myAvatar", "");
 
   const { selectedCafe } = useAppSelector((state) => state.selectedCafe);
   const [comments, setComments] = useState(selectedCafe?.comments || []);
@@ -57,7 +59,7 @@ export const CafeTestimonials: React.FC = () => {
           {currentItems.map((testimonial) => (
             <div className="testimonials__comment comment" key={testimonial.id}>
               <img
-                src={girlFaceAvatar}
+                src={myAvatar || avatar1}
                 alt="girl-face-avatar"
                 className="comment__image"
               />

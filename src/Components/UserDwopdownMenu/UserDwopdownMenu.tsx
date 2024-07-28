@@ -7,11 +7,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
+// import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import {exit} from '../../features/auth/authSlice';
 import { useAppDispatch } from "../../app/hooks";
+import { useLocalStorage } from "../../customHook/useLocalStorage";
 
 export default function UserDwopdownMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -20,6 +21,8 @@ export default function UserDwopdownMenu() {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const [myAvatar] = useLocalStorage("myAvatar", "");
 
   const dispatch = useAppDispatch();
 
@@ -44,7 +47,7 @@ export default function UserDwopdownMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }} src={myAvatar} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -61,15 +64,15 @@ export default function UserDwopdownMenu() {
           handleClose();
           navigate('/cabinet');
         }} >
-          <Avatar /> Мій кабінет
+          <Avatar src={myAvatar} /> Мій кабінет
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Налаштування
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleExit}>
           <ListItemIcon>
             <Logout fontSize="small" />

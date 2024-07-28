@@ -16,6 +16,7 @@ const initialState: ProfileImage = {
 
 export const uploadProfileImage = createAsyncThunk(
   "user/login",
+  // eslint-disable-next-line
   (imageFile: any) => {
     return uploadImage(imageFile);
   }
@@ -36,14 +37,14 @@ export const authSlice = createSlice({
       state.loading = true;
     });
 
-    builder.addCase(uploadProfileImage.fulfilled, (state, action) => {
-      state.imageUrl = action.payload.profilePictureUrl;
-      state.loading = false;
-      localStorage.setItem(
-        "selectedImageUrl",
-        JSON.stringify(action.payload.profilePictureUrl)
-      );
-    });
+    // builder.addCase(uploadProfileImage.fulfilled, (state, action) => {
+    //   state.imageUrl = action.payload.profilePictureUrls[0].profilePictureUrl;
+    //   state.loading = false;
+    //   localStorage.setItem(
+    //     "selectedImageUrl",
+    //     JSON.stringify(action.payload.profilePictureUrls[0].)
+    //   );
+    // });
 
     builder.addCase(uploadProfileImage.rejected, (state) => {
       state.loading = false;

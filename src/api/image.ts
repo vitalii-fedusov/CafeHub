@@ -1,5 +1,6 @@
+import { User } from "../Types/User";
 import { client } from "./wait";
 
-export const uploadImage = (imageFile: any) => {
-  return client.post<any>("/users/profilePicture", {imageFile});
+export const uploadImage = (imageFile: File) => {
+  return client.post<User>("/users/profilePicture", {imageFile});
 };

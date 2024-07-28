@@ -3,10 +3,11 @@ import { Rating } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import * as commentsActions from "../../features/comments/commentsSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import girlFaceAvatar from "../../assets/images/girl-face-avatar.png";
+import avatar1 from "../../assets/images/avatars/avatar-1.png";
 import mapPin from "../../assets/icons/tabler-icon-map-pin.svg";
 import { ModalUpdateComment } from "../ModalUpdateComment/ModalUpdateComment";
 import { Comment } from "../../Types/Comment";
+import { useLocalStorage } from "../../customHook/useLocalStorage";
 
 export const MyComments: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ export const MyComments: React.FC = () => {
   );
   const { cafes } = useAppSelector((state) => state.cafes);
   const [isEditing, setIsEditing] = useState(false);
+  const [myAvatar] = useLocalStorage("myAvatar", "");
 
   const handleDelete = (commentId: number) => {
     dispatch(commentsActions.deleteMyComment(commentId));
@@ -91,7 +93,7 @@ export const MyComments: React.FC = () => {
                   key={comment.id}
                 >
                   <img
-                    src={girlFaceAvatar}
+                    src={myAvatar || avatar1}
                     alt="girl-face-avatar"
                     className="comment__image"
                   />
