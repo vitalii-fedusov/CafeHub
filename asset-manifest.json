@@ -1,10 +1,21 @@
 {
   "files": {
     "main.css": "./static/css/main.2f376782.css",
-    "main.js": "./static/js/main.1c0b37b7.js",
+    "main.js": "./static/js/main.6e67ec32.js",
     "static/media/main-bg-image.jpg": "./static/media/main-bg-image.a4afbe59d7d850b9411f.jpg",
     "static/media/auth-bg.png": "./static/media/auth-bg.237d54b52fd889570bb6.png",
-    "static/media/girl-in-glasses-image.png": "./static/media/girl-in-glasses-image.543e84af499c8b5c83e6.png",
+    "static/media/avatar-4.png": "./static/media/avatar-4.eb931b4ee8e9846a3c24.png",
+    "static/media/avatar-9.png": "./static/media/avatar-9.fde1d35692d77d1a59e8.png",
+    "static/media/avatar-10.png": "./static/media/avatar-10.3e7990078c7804536113.png",
+    "static/media/avatar-2.png": "./static/media/avatar-2.abd9f33c2177b310e994.png",
+    "static/media/avatar-8.png": "./static/media/avatar-8.c598263f5dee49d9b056.png",
+    "static/media/avatar-3.png": "./static/media/avatar-3.9d52136251989a0dbffb.png",
+    "static/media/avatar-7.png": "./static/media/avatar-7.922115ec1653f8ba54b9.png",
+    "static/media/avatar-11.png": "./static/media/avatar-11.e9a88a6301a83d3e74d7.png",
+    "static/media/avatar-5.png": "./static/media/avatar-5.57eebd2304972a4a395b.png",
+    "static/media/avatar-12.png": "./static/media/avatar-12.c5496c2e04008b876ff1.png",
+    "static/media/avatar-1.png": "./static/media/avatar-1.aead62dcadfd90b21499.png",
+    "static/media/avatar-6.png": "./static/media/avatar-6.d8c147a51483d124b216.png",
     "static/media/cafe-logo.svg": "./static/media/cafe-logo.f09f34bbff95618c0656d511adb7bcc5.svg",
     "static/media/done-all-icon.svg": "./static/media/done-all-icon.f8e582f1b803704e83b14c8827af5263.svg",
     "static/media/slick.svg": "./static/media/slick.2630a3e3eab21c607e21.svg",
@@ -19,15 +30,14 @@
     "static/media/tabler-icon-clock-hour-10.svg": "./static/media/tabler-icon-clock-hour-10.da66370e1bf62a16a656f99aa382031d.svg",
     "static/media/world-icon.svg": "./static/media/world-icon.172c3cf72185bb83debe7a01c8ff8418.svg",
     "static/media/circus-building-icon.svg": "./static/media/circus-building-icon.75e3ea49e33052ded3cb1975a7999ffa.svg",
-    "static/media/upload-icon.svg": "./static/media/upload-icon.6afa56675427f16b7034ad3c6cf89860.svg",
     "static/media/arrow-down.svg": "./static/media/arrow-down.086b474cd929025b4fefa32b91a73e11.svg",
     "static/media/arrow-left.svg": "./static/media/arrow-left.e9493111891c01cb4ab3.svg",
     "static/media/arrow-right.svg": "./static/media/arrow-right.8d024af755b1f7350677f84d84905bcb.svg",
     "main.2f376782.css.map": "./static/css/main.2f376782.css.map",
-    "main.1c0b37b7.js.map": "./static/js/main.1c0b37b7.js.map"
+    "main.6e67ec32.js.map": "./static/js/main.6e67ec32.js.map"
   },
   "entrypoints": [
     "static/css/main.2f376782.css",
-    "static/js/main.1c0b37b7.js"
+    "static/js/main.6e67ec32.js"
   ]
 }
