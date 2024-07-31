@@ -38,6 +38,11 @@ export const Home: React.FC = () => {
   const { cafes, loading, error } = useAppSelector((state) => state.cafes);
   const dispatch = useAppDispatch();
 
+  if (error) {
+    // eslint-disable-next-line
+    console.error(error);
+  }
+
   useEffect(() => {
     let url = "";
 
@@ -57,7 +62,12 @@ export const Home: React.FC = () => {
       url += "&";
     }
 
-    url += 'city=Kyiv';
+    url += "city=Kyiv";
+
+    // if (searchParams.get("name")) {
+    //   url += "&";
+    //   url += `name=${searchParams.get("name")}`;
+    // }
 
     if (services.length === 0) {
       dispatch(cafesActions.init());
@@ -121,49 +131,50 @@ export const Home: React.FC = () => {
     }
   }
 
+  const preparedCafes = currentItems.filter((i) =>
+    i.name.toLowerCase().includes(searchParams.get("name")?.toLowerCase() || "")
+  );
+
   return (
     <>
       <SearchBar />
       <Filters />
 
-      {error ? (
-        <h1>{error}</h1>
-      ) : (
-        <div className="main__cards">
-          {!!services.length && (
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                flexWrap: "wrap",
-                gap: "8px",
-                marginBottom: "12px",
-              }}
-            >
-              {services.map((service) => (
-                <Chip
-                  key={service}
-                  label={service}
-                  color="success"
-                  variant="outlined"
-                  onDelete={() => toggleService(service)}
-                />
+      <div className="main__cards">
+        {!!services.length && (
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              flexWrap: "wrap",
+              gap: "8px",
+              marginBottom: "12px",
+            }}
+          >
+            {services.map((service) => (
+              <Chip
+                key={service}
+                label={service}
+                color="success"
+                variant="outlined"
+                onDelete={() => toggleService(service)}
+              />
+            ))}
+          </Stack>
+        )}
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            {!preparedCafes.length && (
+              <h1>There are no cafes with current filters</h1>
+            )}
+            <div className="main__cards-container">
+              {preparedCafes.map((cafe) => (
+                <Card card={cafe} key={cafe.id} />
               ))}
-            </Stack>
-          )}
-          {loading ? (
-            <h1>Loading...</h1>
-          ) : (
-            <>
-              <h1>{`Cafe amount is: ${cafes.length}`}</h1>
-              {!cafes.length && (
-                <h1>There are no cafes with current filters</h1>
-              )}
-              <div className="main__cards-container">
-                {currentItems.map((cafe) => (
-                  <Card card={cafe} key={cafe.id} />
-                ))}
-              </div>
+            </div>
+            {!!preparedCafes.length && (
               <ReactPaginate
                 breakLabel="..."
                 nextLabel=""
@@ -174,10 +185,10 @@ export const Home: React.FC = () => {
                 renderOnZeroPageCount={null}
                 forcePage={page - 1}
               />
-            </>
-          )}
-        </div>
-      )}
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 };
