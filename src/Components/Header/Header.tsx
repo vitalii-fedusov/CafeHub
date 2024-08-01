@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "../../assets/icons/cafe-logo.svg";
 import world from "../../assets/icons/world-icon.svg";
-import arrowDown from "../../assets/icons/arrow-down.svg";
 import { useAppSelector } from "../../app/hooks";
 import UserDwopdownMenu from "../UserDwopdownMenu/UserDwopdownMenu";
 import { ModalLoginWindow } from "../ModalLoginWindow/ModalLoginWindow";
@@ -23,8 +22,16 @@ export const Header: React.FC = () => {
         <nav className="top-bar__nav">
           <ul className="top-bar__items">
             <li className="top-bar__item">
-              <img className="top-bar__icon" src={arrowDown} alt="arrow down" />
-              <span className="top-bar__icon">UA</span>
+              <span
+                className="top-bar__icon"
+                style={{
+                  fontSize: "20px",
+                  fontWeight: "600",
+                  color: "#343A40",
+                }}
+              >
+                UA
+              </span>
               <img className="top-bar__icon" src={world} alt="icon world" />
             </li>
 
@@ -37,13 +44,11 @@ export const Header: React.FC = () => {
                     className="top-bar__button"
                     type="button"
                     onClick={handleOpen}
+                    style={{fontSize: "18px"}}
                   >
                     Вхід
                   </button>
-                  <ModalLoginWindow
-                    open={open}
-                    handleClose={handleClose}
-                  />
+                  <ModalLoginWindow open={open} handleClose={handleClose} />
                 </>
               )}
             </li>

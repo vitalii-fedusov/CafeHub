@@ -16,33 +16,33 @@ export const Filters: React.FC = () => {
     {
       name: "Кухня",
       options: [
-        ["Українська", 'Ukrainian'],
-        ["Європейська", 'European'],
-        ["Авторська", 'Hosper'],
-        ["Здорова їжа", 'Healthy'],
-        ["Смачна випічка та кава", 'Pastries and coffee'],
-        ["Піца", 'Pizza'],
-        ["Fast food", 'Fast food'],
+        ["Українська", "Ukrainian"],
+        ["Європейська", "European"],
+        ["Авторська", "Hosper"],
+        ["Здорова їжа", "Healthy"],
+        ["Смачна випічка та кава", "Pastries and coffee"],
+        ["Піца", "Pizza"],
+        ["Fast food", "Fast food"],
       ],
     },
     {
       name: "Послуги",
       options: [
-        ["Pet Friendly", 'petFriendly'],
-        ["Бізнес-ланчі", 'businessLunch'],
-        ["Настільні ігри", 'boardGames'],
-        ["Коворкінг", 'coworking'],
+        ["Pet Friendly", "petFriendly"],
+        ["Бізнес-ланчі", "businessLunch"],
+        ["Настільні ігри", "boardGames"],
+        ["Коворкінг", "coworking"],
       ],
     },
     {
       name: "Привід",
       options: [
-        ["День народження", 'birthday'],
-        ["Ділова зустріч", 'businessMeeting'],
-        ["Дитяче свято", 'childHoliday'],
-        ["Романтична вечеря", 'romantic'],
-        ["Тематичний вечір", 'thematicEvent'],
-        ["Сімейне свято", 'familyHoliday'],
+        ["День народження", "birthday"],
+        ["Ділова зустріч", "businessMeeting"],
+        ["Дитяче свято", "childHoliday"],
+        ["Романтична вечеря", "romantic"],
+        ["Тематичний вечір", "thematicEvent"],
+        ["Сімейне свято", "familyHoliday"],
       ],
     },
   ];
@@ -71,7 +71,6 @@ export const Filters: React.FC = () => {
     setSearchParams((prev) => {
       const params = new URLSearchParams(prev);
 
-
       const newCuisines = cuisines.includes(cuisine)
         ? cuisines.filter((ch) => ch !== cuisine)
         : [...cuisines, cuisine];
@@ -84,7 +83,7 @@ export const Filters: React.FC = () => {
     });
   }
 
-  const searchOptions = searchParams.getAll('searchOptions') || [];
+  const searchOptions = searchParams.getAll("searchOptions") || [];
 
   function toggleSearchOptions(searchOption: string) {
     setSearchParams((prev) => {
@@ -112,7 +111,7 @@ export const Filters: React.FC = () => {
             fontWeight: "bold",
             fontSize: "22px",
             "&.Mui-focused": {
-              color: brown[600],
+              color: "#4C3330",
             },
           }}
         >
@@ -124,9 +123,9 @@ export const Filters: React.FC = () => {
           value={sortBy}
           onChange={(event) => toggleSortBy(event.target.value)}
           sx={{
-            color: brown[800],
+            color: "#4C3330",
             "&.Mui-checked": {
-              color: brown[600],
+              color: "#4C3330",
             },
             "& .MuiSvgIcon-root": { fontSize: 24 },
           }}
@@ -136,9 +135,9 @@ export const Filters: React.FC = () => {
             control={<Radio />}
             label="За рейтингом (від високого)"
             sx={{
-              color: brown[800],
+              color: "#4C3330",
               ".css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked": {
-                color: brown[600],
+                color: "#4C3330",
               },
             }}
           />
@@ -147,9 +146,9 @@ export const Filters: React.FC = () => {
             control={<Radio />}
             label="За популярністю (від високої)"
             sx={{
-              color: brown[800],
+              color: "#4C3330",
               ".css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked": {
-                color: brown[600],
+                color: "#4C3330",
               },
             }}
           />
@@ -158,7 +157,16 @@ export const Filters: React.FC = () => {
 
       <FormGroup>
         {filters.map((filter) => (
-          <Accordion defaultExpanded key={filter.name}>
+          <Accordion
+            defaultExpanded
+            key={filter.name}
+            elevation={0}
+            sx={{
+              "&:before": {
+                display: "none",
+              },
+            }}
+          >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1-content"
@@ -180,12 +188,13 @@ export const Filters: React.FC = () => {
                         },
                         "& .MuiSvgIcon-root": { fontSize: 24 },
                       }}
-                      checked={filter.name === 'Кухня'
-                        ? cuisines.includes(option[1])
-                        : searchOptions.includes(option[1])
+                      checked={
+                        filter.name === "Кухня"
+                          ? cuisines.includes(option[1])
+                          : searchOptions.includes(option[1])
                       }
                       onChange={() => {
-                        if (filter.name === 'Кухня') {
+                        if (filter.name === "Кухня") {
                           return toggleCuisines(option[1]);
                         }
 

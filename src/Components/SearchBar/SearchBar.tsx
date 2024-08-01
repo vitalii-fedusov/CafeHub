@@ -1,6 +1,5 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import arrowDown from "../../assets/icons/arrow-down.svg";
 
 export const SearchBar: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,13 +18,26 @@ export const SearchBar: React.FC = () => {
     <div className="search-bar main__search-bar">
       <ul className="search-bar__list">
         <li className="search-bar__item search-bar__item--city">
-          <button className="search-bar__city city-button" type="button">
-            <img
-              className="search-bar__arrow-down"
-              src={arrowDown}
-              alt="arrow down"
-            />
-            <h3 className="city-button__name">Київ</h3>
+          <button
+            type="button"
+            style={{
+              height: "56px",
+              width: "100%",
+              backgroundColor: "white",
+              boxShadow: "0px 2px 4px 0px #4E4E4E33",
+            }}
+          >
+            <h3
+              style={{
+                margin: 0,
+                padding: 0,
+                fontSize: "18px",
+                fontWeight: "bold",
+                color: "#343A40",
+              }}
+            >
+              Київ
+            </h3>
           </button>
         </li>
 
