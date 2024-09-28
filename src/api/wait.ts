@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const BASE_URL = "https://solid-rat-production.up.railway.app";
+const BASE_URL = "https://cafehub-private-production.up.railway.app";
 
 export function wait(delay: number) {
   return new Promise((resolve) => {
