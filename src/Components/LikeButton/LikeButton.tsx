@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/* eslint-disable operator-linebreak */
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 // eslint-disable-next-line
@@ -16,6 +17,25 @@ export const LikeButton: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { selectedCafe } = useAppSelector((state) => state.selectedCafe);
   const dispatch = useAppDispatch();
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    if (!favouritesCafes.length) {
+      setIsLiked(false);
+
+      return;
+    }
+
+    if (
+      favouritesCafes.length && selectedCafe && Array.isArray(favouritesCafes)
+        ? favouritesCafes.find((cafe) => cafe.id === selectedCafe.id)
+        : false
+    ) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [favouritesCafes, selectedCafe]);
 
   useEffect(() => {
     if (user) {
@@ -35,10 +55,6 @@ export const LikeButton: React.FC = () => {
     }
   };
 
-  // eslint-disable-next-line
-  const cafeIsLiked =
-    selectedCafe && favouritesCafes.find((cafe) => cafe.id === selectedCafe.id);
-
   return (
     <div className="cafe__buttons">
       {loading ? (
@@ -48,8 +64,8 @@ export const LikeButton: React.FC = () => {
           {/* eslint-disable-next-line */}
           <button
             className={classNames("button", {
-              "button--like-filled": cafeIsLiked,
-              "button--like": !cafeIsLiked,
+              "button--like-filled": isLiked,
+              "button--like": !isLiked,
             })}
             id="likeButton"
             type="button"
@@ -58,7 +74,7 @@ export const LikeButton: React.FC = () => {
                 handleOpen();
               }
 
-              if (cafeIsLiked) {
+              if (isLiked) {
                 dislike();
               } else {
                 like();
@@ -70,7 +86,7 @@ export const LikeButton: React.FC = () => {
             <label htmlFor="likeButton">{error}</label>
           ) : (
             <label htmlFor="likeButton">
-              {cafeIsLiked ? "Видалити з улюбленого" : "Додати в улюблене"}
+              {isLiked ? "Видалити з улюбленого" : "Додати в улюблене"}
             </label>
           )}
         </div>

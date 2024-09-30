@@ -49,7 +49,8 @@ export const CafeTestimonials: React.FC = () => {
   }
 
   if (error) {
-    return <h1>{error}</h1>;
+    // eslint-disable-next-line no-console
+    console.error(error);
   }
 
   return (

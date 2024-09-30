@@ -154,7 +154,8 @@ export const ModalUpdateComment: React.FC<Props> = ({
   }
 
   if (error) {
-    return <h1>{error}</h1>;
+    // eslint-disable-next-line no-console
+    console.error(error);
   }
 
   return (

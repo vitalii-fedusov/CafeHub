@@ -38,7 +38,8 @@ export const MyComments: React.FC = () => {
   }, [dispatch]);
 
   if (error) {
-    return <h1>{error}</h1>;
+    // eslint-disable-next-line no-console
+    console.error(error);
   }
 
   if (loading) {
