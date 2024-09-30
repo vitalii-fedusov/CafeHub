@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Modal, Rating, Typography } from "@mui/material";
+import { Box, Modal, Rating, Typography, Stack } from "@mui/material";
 import { Input as BaseInput, InputProps } from "@mui/base/Input";
 import { styled } from "@mui/system";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -22,6 +22,7 @@ const style = {
   alignItems: "center",
   justifyContent: "center",
   rowGap: "8px",
+  borderRadius: "24px",
 };
 
 type Props = {
@@ -54,7 +55,7 @@ const grey = {
 
 const RootDiv = styled("div")`
   display: flex;
-  max-width: 100%;
+  width: 100%;
 `;
 
 const TextareaElement = styled("textarea", {
@@ -62,7 +63,8 @@ const TextareaElement = styled("textarea", {
     !["ownerState", "minRows", "maxRows"].includes(prop.toString()),
 })(
   ({ theme }) => `
-  width: 320px;
+  width: 100%;
+  height: 100px;
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
@@ -139,8 +141,15 @@ export const ModalComment: React.FC<Props> = ({
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state) => state.comments);
   const id = useAppSelector((state) => state.selectedCafe.selectedCafe?.id);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = () => {
+    if (!comment.trim()) {
+      setErrorMessage("Відгук не має бути порожнім");
+
+      return;
+    }
+
     dispatch(
       commentsActions.createComment({
         cafeId: +(id || 0),
@@ -162,7 +171,8 @@ export const ModalComment: React.FC<Props> = ({
   }
 
   if (error) {
-    return <h1>{error}</h1>;
+    // eslint-disable-next-line no-console
+    console.error(error);
   }
 
   return (
@@ -171,27 +181,40 @@ export const ModalComment: React.FC<Props> = ({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      sx={{ borderRadius: "24px !important" }}
     >
       <Box sx={style}>
-        <Typography
-          id="modal-modal-title"
-          variant="h5"
-          component="h2"
-          sx={{
-            fontWeight: "bold",
-            margin: "8px",
-          }}
-        >
-          Відгук
-        </Typography>
-        <InputMultiline
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
+        <Stack width="100%">
+          <Typography
+            id="modal-modal-title"
+            variant="h5"
+            component="h2"
+            sx={{
+              fontWeight: "bold",
+              margin: "8px",
+            }}
+            textAlign="left"
+          >
+            Відгук
+          </Typography>
+          <InputMultiline
+            value={comment}
+            onChange={(e) => {
+              setErrorMessage("");
+              setComment(e.target.value);
+            }}
+          />
+          {errorMessage ? (
+            <Typography color="error">{errorMessage}</Typography>
+          ) : null}
+        </Stack>
         <Box
           sx={{
             "& > legend": { mt: 2 },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
           }}
         >
           <Typography component="legend">Оцініть заклад</Typography>
@@ -203,6 +226,7 @@ export const ModalComment: React.FC<Props> = ({
             }}
           />
           <button
+            style={{ width: "100%", marginTop: "16px" }}
             className="search-bar__search testimonials__button"
             type="button"
             onClick={handleSubmit}
