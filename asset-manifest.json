@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.7873b65b.css",
-    "main.js": "./static/js/main.5c0945d7.js",
+    "main.css": "./static/css/main.7a11c073.css",
+    "main.js": "./static/js/main.0a9478b1.js",
     "static/media/main-bg-image.jpg": "./static/media/main-bg-image.a4afbe59d7d850b9411f.jpg",
     "static/media/auth-bg.png": "./static/media/auth-bg.237d54b52fd889570bb6.png",
     "static/media/avatar-4.png": "./static/media/avatar-4.eb931b4ee8e9846a3c24.png",
@@ -32,11 +32,11 @@
     "static/media/circus-building-icon.svg": "./static/media/circus-building-icon.75e3ea49e33052ded3cb1975a7999ffa.svg",
     "static/media/arrow-left.svg": "./static/media/arrow-left.e9493111891c01cb4ab3.svg",
     "static/media/arrow-right.svg": "./static/media/arrow-right.8d024af755b1f7350677f84d84905bcb.svg",
-    "main.7873b65b.css.map": "./static/css/main.7873b65b.css.map",
-    "main.5c0945d7.js.map": "./static/js/main.5c0945d7.js.map"
+    "main.7a11c073.css.map": "./static/css/main.7a11c073.css.map",
+    "main.0a9478b1.js.map": "./static/js/main.0a9478b1.js.map"
   },
   "entrypoints": [
-    "static/css/main.7873b65b.css",
-    "static/js/main.5c0945d7.js"
+    "static/css/main.7a11c073.css",
+    "static/js/main.0a9478b1.js"
   ]
 }
